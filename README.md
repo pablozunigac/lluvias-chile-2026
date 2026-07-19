@@ -11,15 +11,15 @@ El proyecto sigue una estructura modular para reducir la fricción en el manejo 
 * **`data/`** Archivos de datos sin procesar
   * `lluvia_2026_v1.csv` : Lluvias entre jueves 16 y sábado 17 de julio de 2026 (Actualización: jueves, 11am)
   * `lluvia_2026_v2.csv` : Lluvias entre jueves 16 y martes 21 de julio de 2026 (Actualización: domingo, 5am)  
-**`output/`** Resultados, gráficos y datasets procesados listos para exportación  
-**`Metadatos/`**
-- .gitignore                : Reglas de exclusión para archivos temporales y datos pesados
-- README.md                 : Documentación técnica del repositorio
+* **`output/`** Resultados, gráficos y datasets procesados listos para exportación  
+* **`Metadatos/`**
+  * `.gitignore`: Reglas de exclusión para archivos temporales y datos pesados
+  * `README.md` : Documentación técnica del repositorio
 
 ## Entorno de Desarrollo
 - **IDE:** Positron 2026.07.0 build 365
 - **Lenguaje:** R 4.5.2
-- **Librerías de R:**
+- **Librerías de R**
   - `here` : Resolucion de rutas absolutas basada en el anclaje raiz del proyecto
   - `lubridate` : Parseo, aritmetica y manipulacion eficiente de fechas y zonas horarias
   - `tidyverse` : Coleccion de paquetes para ciencia de datos y transformacion de estructuras

@@ -1,6 +1,6 @@
 # Modelo Estadístico para las Lluvias de 2026 en Chile
 
-Este repositorio contiene la infraestructura de datos, el flujo ETL (Extracción, Transformación y Carga) y los modelos estadísticos diseñados para analizar las precipitaciones en Chile durante el año 2026. El objetivo es estructurar visualizaciones de datos para las series de tiempo meteorológicas pronosticadas por Windy (ECMWF) para la Región de Valparaíso para julio de 2026.
+Este repositorio contiene la infraestructura de datos, el flujo ETL (_Extract_, _Transform_, _Load_) y los modelos estadísticos diseñados para analizar las precipitaciones en Chile durante el año 2026. El objetivo es estructurar visualizaciones de datos para las series de tiempo meteorológicas pronosticadas por Windy (ECMWF) para la Región de Valparaíso para julio de 2026.
 
 ## Arquitectura del Proyecto
 
@@ -12,7 +12,7 @@ El proyecto sigue una estructura modular para reducir la fricción en el manejo 
   * `lluvia_2026_v1.csv` : Lluvias entre jueves 16 y sábado 17 de julio de 2026 (Actualización: jueves, 11am)
   * `lluvia_2026_v2.csv` : Lluvias entre jueves 16 y martes 21 de julio de 2026 (Actualización: domingo, 5am)  
 * **`./output`** : Resultados, gráficos y datos procesados listos para exportación  
-* **`Metadatos GitHub/`**
+* **`Metadatos GitHub`**
   * `./README.md` : Documentación técnica del repositorio
   * `./.gitignore`: Reglas de exclusión para archivos temporales y datos pesados
 

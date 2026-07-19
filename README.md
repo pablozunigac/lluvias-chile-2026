@@ -40,7 +40,7 @@ Consolidación de todos los componentes analíticos en un único metagráfico in
 - **IDE:** Positron 2026.07.0 build 365
 - **Lenguaje:** R 4.5.2
 - **Librerías de R**
-  - `here` : Resolucion de rutas absolutas basada en el anclaje raiz del proyecto
+  - `here` : Resolución de rutas absolutas basada en el anclaje raiz del proyecto
   - `lubridate` : Parseo, aritmetica y manipulacion eficiente de fechas y zonas horarias
   - `plotly` : Gráficos interactivos y dinámicos para exploración de datos
   - `slider` : Cálculo eficiente de ventanas móviles y promedios acumulados

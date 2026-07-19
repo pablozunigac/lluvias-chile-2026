@@ -9,7 +9,7 @@ El proyecto sigue una estructura modular para reducir la fricción en el manejo 
 - R/
   00-lectura-ETL.R        : Script principal de importación, limpieza y formateo cronológico
 - data/                   : Bases de datos locales (Archivos fuente protegidos por .gitignore)
-  lluvia_2026_v1.csv     : Lluvias entre jueves y martes
+  lluvia_2026_v1.csv     : Lluvias entre jueves y sábado
   lluvia_2026_v2.csv     : Lluvias entre jueves y martes
 - output/                 : Resultados, gráficos y datasets procesados listos para exportación
 - .gitignore              : Reglas de exclusión para archivos temporales y datos pesados

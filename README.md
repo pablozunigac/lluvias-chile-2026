@@ -16,6 +16,19 @@ El proyecto sigue una estructura modular para reducir la fricción en el manejo 
   * `./README.md` : Documentación técnica del repositorio
   * `./.gitignore`: Reglas de exclusión para archivos temporales y datos pesados
 
+---
+
+## Metodología y Modelo Estocástico
+Este repositorio implementa un modelo estocástico enfocado en la modelación paramétrica y el análisis de persistencia temporal de las precipitaciones pronosticadas. El flujo metodológico y analítico contempla:
+
+* **Análisis de Frecuencia Marginal:** Despliegue gráfico continuo de la cantidad marginal de lluvia en milímetros (mm) agregada en intervalos estricto de 3 horas.
+* **Cálculo de Persistencia y Acumulación:** Determinación de la suma acumulada móvil con ventana hacia el pasado para bloques críticos de 6, 12, 24, 36, 48, 60 y 72 horas (desarrollado mediante la librería `slider`).
+* **Análisis de Distribución Puntual:** Evaluación de la distribución probabilística de la lluvia pronosticada a partir de las observaciones fijas cada 3 horas, segmentadas de acuerdo a los momentos de actualización de cada conjunto de datos.
+* **Ajuste Paramétrico:** Ajuste de las observaciones a funciones de distribución de probabilidad para la estimación de periodos de retorno y cuantiles de eventos extremos.
+* **Visualización Integrada:** Consolidación de todos los componentes analíticos en un único metagráfico interactivo y unificado bajo una interfaz tipo tablero de control (desarrollado mediante `plotly`).
+
+---
+
 ## Entorno de Desarrollo
 - **IDE:** Positron 2026.07.0 build 365
 - **Lenguaje:** R 4.5.2
@@ -26,6 +39,8 @@ El proyecto sigue una estructura modular para reducir la fricción en el manejo 
   - `plotly` : Gráficos interactivos y dinámicos para exploración de datos
   - `slider` : Cálculo eficiente de ventanas móviles y promedios acumulados
   - `tsibble` : Estructuras de datos y herramientas optimizadas para series de tiempo
+
+---
 
 ## Configuración y Reproducción
 Para ejecutar este proyecto de forma local sin errores de rutas absolutas, asegúrate de clonar el repositorio dentro de tu entorno de trabajo:

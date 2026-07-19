@@ -7,14 +7,14 @@ Este repositorio contiene la infraestructura de datos, el flujo ETL (_Extract_, 
 ## Arquitectura del Proyecto
 
 El proyecto sigue una estructura modular para reducir la fricción en el manejo de datos y código:
-
+### Estructura de Archivos
 * **`./R`** : Scripts ETL (incluye formateo temporal) y dataviz
   * `00-lectura-ETL.R` : Script principal de importación, limpieza y formateo temporal  
 * **`./data`** : Archivos de datos sin procesar
   * `lluvia_2026_v1.csv` : Lluvias entre jueves 16 y sábado 17 de julio de 2026 (Actualización: jueves, 11am)
   * `lluvia_2026_v2.csv` : Lluvias entre jueves 16 y martes 21 de julio de 2026 (Actualización: domingo, 5am)  
 * **`./output`** : Resultados, gráficos y datos procesados listos para exportación  
-### `Metadatos GitHub`
+### Metadatos GitHub
   * `./README.md` : Documentación técnica del repositorio
   * `./.gitignore`: Reglas de exclusión para archivos temporales y datos pesados
 

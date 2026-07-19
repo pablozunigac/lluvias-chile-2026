@@ -4,7 +4,6 @@
 # Datos locales (nunca subir bases de datos pesadas a Git)
 *.xls
 *.xlsx
-data/
 
 # Archivos temporales de R y Positron
 .Rhistory

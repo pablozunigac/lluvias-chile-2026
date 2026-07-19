@@ -49,10 +49,10 @@ Consolidación de todos los componentes analíticos en un único metagráfico in
 
 ---
 
-### Configuración y Reproducción
+## Configuración y Reproducción
 Para ejecutar este proyecto de forma local sin errores de rutas absolutas, asegúrate de clonar el repositorio dentro de tu entorno de trabajo:
 
-#### 1. Requisitos Previos
+### 1. Requisitos Previos
 * **Entorno:** Positron IDE (versión 2026.07.0 o superior) o RStudio.
 * **Lenguaje:** R (versión >= 4.5.2).
 
@@ -62,13 +62,13 @@ Asegúrate de contar con los siguientes paquetes instalados. Puedes ejecutarlos 
    install.packages(c( 'here', 'lubridate', 'plotly', 'slider', 'tidyverse', 'tsibble'))
    ```
 
-#### 3. Clonación e Inicio
+### 3. Clonación e Inicio
 Clona este repositorio en tu máquina local:
   ```bash
   git clone https://github.com/pablozunigac/lluvias-chile-2026.git
   ```
 
-#### 4. Ejecución de Código
+### 4. Ejecución de Código
 Para procesar los datos crudos y ejecutar el modelo, ejecuta el _script_ principal desde la consola de R:
   ```R
   source('R/00-lectura-ETL.R')

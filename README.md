@@ -6,15 +6,15 @@ Este repositorio contiene la infraestructura de datos, el flujo ETL (Extracción
 
 El proyecto sigue una estructura modular para reducir la fricción en el manejo de datos y código:
 
-* **`R/`** Script principal de importación, limpieza y formateo cronológico
-  * `00-lectura-ETL.R`        : Script principal de importación, limpieza y formateo cronológico  
-* **`data/`** Archivos de datos sin procesar
+* **`./R`** : Script principal de importación, limpieza y formateo cronológico
+  * `00-lectura-ETL.R` : Script principal de importación, limpieza y formateo cronológico  
+* **`./data`** : Archivos de datos sin procesar
   * `lluvia_2026_v1.csv` : Lluvias entre jueves 16 y sábado 17 de julio de 2026 (Actualización: jueves, 11am)
   * `lluvia_2026_v2.csv` : Lluvias entre jueves 16 y martes 21 de julio de 2026 (Actualización: domingo, 5am)  
-* **`output/`** Resultados, gráficos y datasets procesados listos para exportación  
-* **`Metadatos/`**
-  * `.gitignore`: Reglas de exclusión para archivos temporales y datos pesados
-  * `README.md` : Documentación técnica del repositorio
+* **`./output`** : Resultados, gráficos y datos procesados listos para exportación  
+* **`Metadatos GitHub/`**
+  * `./README.md` : Documentación técnica del repositorio
+  * `./.gitignore`: Reglas de exclusión para archivos temporales y datos pesados
 
 ## Entorno de Desarrollo
 - **IDE:** Positron 2026.07.0 build 365

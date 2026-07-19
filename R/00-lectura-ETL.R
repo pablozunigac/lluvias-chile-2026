@@ -1,31 +1,34 @@
 # Limpieza inicial
+cat('\014')
 rm(list = ls())
-gc()
 
 # Librerías necesarias
-# 'here'   : Gestiona rutas relativas robustas basadas en la raíz del proyecto Git
-# 'readr'  : Lector de archivos planos ultra rápido e inteligente (Tidyverse)
 library(here)
+library(lubridate)
+library(plotly)
+library(slider)
 library(tidyverse)
 library(tsibble)
-library(slider)
-library(plotly)
 
-# Lectura de datos
-# ruta_datos = here('data', 'lluvia_2026_v1.csv')
-datos_raw = read_delim(here('data',
-                            'lluvia_2026_v1.csv'),
-                      delim = ';',
-                      col_names = TRUE
-                      )
-datos_clean <- datos_raw %>%
-  mutate(
-    fecha_dt = as.Date(fecha, origin = '1899-12-30'),
+# Lectura eficiente con enrutamiento dinamico
+datos_clean <- read_delim(
+  file = here('data', 'lluvia_2026_v1.csv'),
+  delim = ";",
+  show_col_types = FALSE
+) %>%
+  # Transmute() crea las variables nuevas y descarta las antiguas en un solo paso
+  transmute(
+    timestamp = as_datetime(as.Date(fecha, origin = "1899-12-30")) + hours(hora),
     lluvia_mm = as.numeric(lluvia_mm),
-    timestamp = as.POSIXct(paste(fecha_dt, sprintf("%02d:00:00", hora)), format = "%Y-%m-%d %H:%M:%S")
-  ) %>% 
-  select(timestamp, fecha_dt, hora, lluvia_mm)
+  )
+head(datos_clean, 10)
 
-glimpse(datos_clean)
-
-datos_clean
+# Visualizació de datos
+plot(
+  datos_clean$timestamp,
+  datos_clean$lluvia_mm,
+  type = 'p',
+  main = 'Quilpué: Lluvia cada tres horas (mm)',
+  xlab = 'Fecha',
+  ylab = 'Lluvia (mm)'
+)

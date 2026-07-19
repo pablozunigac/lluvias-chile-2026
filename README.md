@@ -12,7 +12,7 @@ El proyecto sigue una estructura modular para reducir la fricción en el manejo 
   * `00-lectura-ETL.R` : Script principal de importación, limpieza y formateo temporal  
 * **`./data`** : Archivos de datos sin procesar
   * `lluvia_2026_v1.csv` : Lluvias entre jueves 16 y sábado 17 de julio de 2026 (Actualización: jueves, 11am)
-  * `lluvia_2026_v2.csv` : Lluvias entre jueves 16 y martes 21 de julio de 2026 (Actualización: domingo, 5am)  
+  * `lluvia_2026_v2.csv` : Lluvias entre jueves 16 y martes 21 de julio de 2026 (Actualización: domingo, 4am) 
 * **`./output`** : Resultados, gráficos y datos procesados listos para exportación  
 ### Metadatos del Repositorio GitHub
   * `./README.md` : Documentación técnica del repositorio

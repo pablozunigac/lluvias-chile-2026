@@ -41,10 +41,10 @@ Consolidación de todos los componentes analíticos en un único metagráfico in
 - **Lenguaje:** R 4.5.2
 - **Librerías de R**
   - `here` : Resolución de rutas absolutas basada en el anclaje raiz del proyecto
-  - `lubridate` : Parseo, aritmetica y manipulacion eficiente de fechas y zonas horarias
+  - `lubridate` : Transformación y tratamoiento eficiente de fechas y zonas horarias
   - `plotly` : Gráficos interactivos y dinámicos para exploración de datos
   - `slider` : Cálculo eficiente de ventanas móviles y promedios acumulados
-  - `tidyverse` : Coleccion de paquetes para ciencia de datos y transformacion de estructuras
+  - `tidyverse` : Colección de paquetes para ciencia de datos y transformación de estructuras
   - `tsibble` : Estructuras de datos y herramientas optimizadas para series de tiempo
 
 ---
@@ -67,3 +67,5 @@ Clona este repositorio en tu máquina local:
    ```bash
    git clone [https://github.com/pablozunigac/lluvias-chile-2026.git](https://github.com/pablozunigac/lluvias-chile-2026.git)
    ```
+
+   

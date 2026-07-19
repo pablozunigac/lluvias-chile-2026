@@ -3,8 +3,8 @@ rm(list = ls())
 gc()
 
 # Librerías necesarias
-# 'here'   -> Gestiona rutas relativas robustas basadas en la raíz del proyecto Git
-# 'readr'  -> Lector de archivos planos ultra rápido e inteligente (Tidyverse)
+# 'here'   : Gestiona rutas relativas robustas basadas en la raíz del proyecto Git
+# 'readr'  : Lector de archivos planos ultra rápido e inteligente (Tidyverse)
 library(here)
 library(tidyverse)
 library(tsibble)

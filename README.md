@@ -25,14 +25,14 @@ Este repositorio implementa un modelo estocástico enfocado en la modelación pa
 
 * **Análisis de Frecuencia Marginal**  
 Despliegue gráfico continuo de la cantidad marginal de lluvia en milímetros (mm) agregada en intervalos estricto de 3 horas.
-* **Cálculo de Persistencia y Acumulación**  
-Determinación de la acumulación móvil (suma) con ventana de tiempo hacia el pasado para bloques de 6, 12, 24, 36, 48, 60 y 72 horas (desarrollado mediante la librería `slider`).
+* **Cálculo de Persistencia y Acumulación (**_mediante_ `slider`**)**   
+Determinación de la acumulación móvil (suma) con ventana de tiempo hacia el pasado para bloques de 6, 12, 24, 36, 48, 60 y 72 horas.
 * **Análisis de Distribución Puntual**  
 Evaluación de la distribución probabilística de la lluvia pronosticada a partir de las observaciones fijas cada 3 horas, segmentadas de acuerdo a los momentos de actualización de cada conjunto de datos.
 * **Ajuste Paramétrico**  
 Ajuste de las observaciones a funciones de distribución de probabilidad para la estimación de periodos de retorno y cuantiles de eventos extremos.
-* **Visualización Integrada**  
-Consolidación de todos los componentes analíticos en un único metagráfico interactivo y unificado bajo una interfaz tipo tablero de control (desarrollado mediante `plotly`).
+* **Visualización Integrada (**_mediante_ `plotly`**)**   
+Consolidación de todos los componentes analíticos en un único metagráfico interactivo y unificado bajo una interfaz tipo tablero de control.
 
 ---
 

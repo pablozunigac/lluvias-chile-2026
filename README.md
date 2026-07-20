@@ -12,7 +12,7 @@ El proyecto sigue una estructura modular para reducir la fricción en el manejo 
   * `00-lectura-ETL.R` : Script principal de importación, limpieza y formateo temporal  
 * **`./data`** : Archivos de datos sin procesar
   * `lluvia_2026_v1.csv` : Lluvias entre jueves 16 y sábado 17 de julio de 2026 (Actualización: jueves 11am)
-  * `lluvia_2026_v2.csv` : Lluvias entre jueves 16 y martes 21 de julio de 2026 (Actualización: domingo 4pm) 
+  * `lluvia_2026_v2.csv` : Lluvias entre jueves 16 y martes 21 de julio de 2026 (Actualización: domingo 8pm)
 * **`./output`** : Resultados, gráficos y datos procesados listos para exportación  
 ### Metadatos del Repositorio GitHub
   * `./README.md` : Documentación técnica del repositorio
@@ -26,7 +26,7 @@ Este repositorio implementa un modelo estocástico enfocado en la modelación pa
 * **Análisis de Frecuencia Marginal**  
 Despliegue gráfico continuo de la cantidad marginal de lluvia en milímetros (mm) agregada en intervalos estricto de 3 horas.
 * **Cálculo de Persistencia y Acumulación**  
-Determinación de la suma acumulada móvil con ventana hacia el pasado para bloques críticos de 6, 12, 24, 36, 48, 60 y 72 horas (desarrollado mediante la librería `slider`).
+Determinación de la acumulación móvil (suma) con ventana de tiempo hacia el pasado para bloques de 6, 12, 24, 36, 48, 60 y 72 horas (desarrollado mediante la librería `slider`).
 * **Análisis de Distribución Puntual**  
 Evaluación de la distribución probabilística de la lluvia pronosticada a partir de las observaciones fijas cada 3 horas, segmentadas de acuerdo a los momentos de actualización de cada conjunto de datos.
 * **Ajuste Paramétrico**  
@@ -53,8 +53,8 @@ Consolidación de todos los componentes analíticos en un único metagráfico in
 Para ejecutar este proyecto de forma local sin errores de rutas absolutas, asegúrate de clonar el repositorio dentro de tu entorno de trabajo:
 
 ### 1. Requisitos Previos
-* **Entorno:** Positron IDE (versión 2026.07.0 o superior) o RStudio.
-* **Lenguaje:** R (versión >= 4.5.2).
+* **Lenguaje:** R (versión >= 4.5.2)
+*Nota: El código es agnóstico al entorno de desarrollo; puede ejecutarse de forma nativa desde la terminal o mediante IDEs como Positron o RStudio.*
 
 ### 2. Gestión de Dependencias
 Asegúrate de contar con los siguientes paquetes instalados. Puedes ejecutarlos directamente en la consola de R:
@@ -73,4 +73,3 @@ Para procesar los datos crudos y ejecutar el modelo, ejecuta el _script_ princip
   ```R
   source('R/00-lectura-ETL.R')
   ```
-

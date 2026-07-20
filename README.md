@@ -53,7 +53,7 @@ Consolidación de todos los componentes analíticos en un único metagráfico in
 Para ejecutar este proyecto de forma local sin errores de rutas absolutas, asegúrate de clonar el repositorio dentro de tu entorno de trabajo:
 
 ### 1. Requisitos Previos
-* **Lenguaje:** R (versión >= 4.5.2)
+* **Lenguaje:** R (versión >= 4.5.2)  
 *Nota: El código es agnóstico al entorno de desarrollo; puede ejecutarse de forma nativa desde la terminal o mediante IDEs como Positron o RStudio.*
 
 ### 2. Gestión de Dependencias

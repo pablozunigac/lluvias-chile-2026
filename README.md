@@ -76,7 +76,7 @@ Para procesar los datos crudos y ejecutar el modelo, ejecuta el _script_ princip
 
 ---
 
-## Configuración y Reproducción
+## Perfil Profesional y Contacto
 
 **Perfil Profesional Extendido: [pablozunigac.github.io ↗](http://pablozunigac.github.io)  
 Contacto: [pablo.zuniga.c@gmail.com](mailto:pablo.zuniga.c@gmail.com)**

@@ -3,11 +3,11 @@ cat('\014')
 rm(list = ls())
 
 # Librerías necesarias
+library(tidyverse)
 library(here)
 library(lubridate)
 library(plotly)
 library(slider)
-library(tidyverse)
 library(tsibble)
 
 # Lectura eficiente con enrutamiento dinamico

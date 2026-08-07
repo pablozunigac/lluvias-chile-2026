@@ -27,28 +27,29 @@ lluvias-chile-2026/
 ## Metodología y Modelo Analítico
 
 El flujo de trabajo aborda la saturación hídrica mediante el análisis de persistencia y concentración en múltiples ventanas de tiempo hacia atrás (backward rolling windows):
-* Análisis de Frecuencia Marginal  
+* **Análisis de Frecuencia Marginal**  
 Registros discretos de precipitación (mm) agregados en intervalos de 3 horas.
-* Matriz de Saturación Multi-Ventana  
+* **Matriz de Saturación Multi-Ventana**  
 Cálculo de acumulados y medias móviles vectorizadas para ventanas temporales de 6h y de entre 12h y 96h en intervalos de 12h.
-* Persistencia Columnar (`Parquet`)
+* **Persistencia Columnar (`Parquet`)**
 Transformación de los tipos flotantes de Excel a marcas temporales absolutas y almacenamiento binario comprimido con Snappy.
-* Visualización de Concentración: Generación de un mapa de calor (Heatmap) en Plotly para identificar los picos máximos de saturación de suelo durante el evento crítico.
+* **Visualización de Concentración**  
+Generación de un mapa de calor (Heatmap) en Plotly para identificar los picos máximos de saturación de suelo durante el evento crítico.
 
 ## Entorno de Desarrollo y Dependencias
 
 Entorno Python (Pipeline Principal)
-Intérprete: Python 3.11+
+Intérprete: Python 3.11+  
 
-`polars` – Procesamiento y cálculo de medias móviles vectorizadas a alta velocidad.
-`plotly` – Motor de renderizado interactivo para mapas térmicos.
-`pandas` – Utilidades complementarias de formateo de arreglos.
+`polars` – Procesamiento y cálculo de medias móviles vectorizadas a alta velocidad.  
+`plotly` – Motor de renderizado interactivo para mapas térmicos.  
+`pandas` – Utilidades complementarias de formateo de arreglos.  
 
 ---
 
 ## Entorno R (Análisis Estadístico Completo)
 
-Lenguaje: R ≥ 4.5.2
+Lenguaje: R ≥ 4.5.2  
 Paquetes: `tidyverse`, `lubridate`, `plotly`, `slider`, `tsibble`, `here`.
 
 ---
@@ -75,6 +76,8 @@ python3 src/csv_to_parquet.py
 ```bash
 source('R/00-lectura-ETL.R')
 ```
+
+---
 
 ## Perfil Profesional y Contacto
 

@@ -2,7 +2,7 @@ from pathlib import Path
 import plotly.express as px
 import polars as pl
 
-# 1. Rutas del proyecto
+# Rutas del proyecto
 BASE_DIR = Path(__file__).resolve().parent.parent
 RAW_CSV_PATH = BASE_DIR / "data" / "raw" / "Lluvia_2026_v2.csv"
 PROCESSED_PARQUET_PATH = BASE_DIR / "data" / "processed" / "lluvia_2026.parquet"
@@ -11,9 +11,9 @@ def process_rain_matrix_and_visualize() -> None:
     if not RAW_CSV_PATH.exists():
         raise FileNotFoundError(f"No se encontró el archivo: {RAW_CSV_PATH}")
 
-    print(f"📖 1. Leyendo CSV: {RAW_CSV_PATH.name}")
+    print(f"Leyendo .csv: {RAW_CSV_PATH.name}")
 
-    # 2. Cargar CSV delimitado por punto y coma
+    # Cargar .csv delimitado por punto y coma
     df_raw = pl.read_csv(
         RAW_CSV_PATH,
         separator=";",
@@ -24,7 +24,7 @@ def process_rain_matrix_and_visualize() -> None:
         },
     )
 
-    # 3. Formatear marca temporal y ordenar matriz
+    # Formatear marca temporal y ordenar matriz
     df_base = (
         df_raw.with_columns(
             fecha_date=pl.date(1899, 12, 30) + pl.duration(days=pl.col("fecha"))
@@ -37,10 +37,10 @@ def process_rain_matrix_and_visualize() -> None:
         .sort("datetime")
     )
 
-    # 4. Definir ventanas de tiempo (6h a 96h de a 12h) -> cada registro = 3h
+    # Definir ventanas de tiempo (6h, 12h,..., 96h de a 12h) -> 3h por registro: 
     target_hours = [6] + list(range(12, 97, 12))
 
-    # Expresiones vectorizadas para medias móviles hacia atrás (backward rolling mean)
+    # Expresiones vectorizadas para medias móviles hacia atrás
     rolling_exprs = [
         pl.col("lluvia_mm")
         .rolling_mean(window_size=(h // 3), min_samples=(h // 3))
@@ -48,7 +48,7 @@ def process_rain_matrix_and_visualize() -> None:
         for h in target_hours
     ]
 
-    # 5. Construir matriz completa con suma acumulada y medias móviles
+    # Construir matriz completa con suma acumulada y medias móviles
     df_matrix = df_base.with_columns(
         [pl.col("lluvia_mm").cum_sum().alias("sum_acum")] + rolling_exprs
     )
@@ -58,19 +58,19 @@ def process_rain_matrix_and_visualize() -> None:
     final_cols = ["datetime", "fecha_date", "hora", "lluvia_mm", "sum_acum"] + ma_cols
     df_final = df_matrix.select(final_cols)
 
-    # 6. Almacenar Matriz Completa en Parquet
+    # Almacenar Matriz de valores completos en .parquet
     PROCESSED_PARQUET_PATH.parent.mkdir(parents=True, exist_ok=True)
     df_final.write_parquet(PROCESSED_PARQUET_PATH, compression="snappy")
     print(f"⚡ 2. Matriz guardada en Parquet: {PROCESSED_PARQUET_PATH}")
 
-    # 7. Desplegar matriz calculada en pantalla (Terminal)
-    print("\n📊 3. Despliegue de la Matriz Calculada (Cabeceras ad hoc):")
+    # Desplegar matriz calculada en pantalla
+    print("\n Despliegue de la Matriz Calculada:")
     pl.Config.set_tbl_cols(len(final_cols))
     pl.Config.set_tbl_rows(20)
     print(df_final)
 
-    # 8. Generar Heatmap Interactivo de la Matriz Completa (Plotly)
-    print("\n🎨 4. Generando Heatmap de Concentración de Lluvia...")
+    # Generar Mapa de Calor Interactivo de la Matriz Completa (Plotly)
+    print("\n 4. Generando Mapa de Calor de Concentración de Lluvia...")
 
     # Formatear la columna de tiempo a texto
     df_plot = df_final.with_columns(
@@ -98,7 +98,7 @@ def process_rain_matrix_and_visualize() -> None:
         coloraxis_colorbar=dict(title="mm/h Promedio"),
     )
 
-    # Abrir el Heatmap en el navegador por defecto
+    # Abrir el Mapa de Calor en el navegador por defecto
     fig.show()
 
 if __name__ == "__main__":

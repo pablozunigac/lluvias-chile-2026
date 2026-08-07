@@ -9,20 +9,15 @@ Este repositorio implementa una infraestructura analítica avanzada para la eval
 El análisis de esta matriz se enmarca dentro del **Temporal de Chile de 2026**, un evento meteorológico extremo impulsado por un río atmosférico de categoría 5 y un "tren de sistemas frontales" continuo potenciado por el ciclo de El Niño. 
 
 ### Impacto y Métricas Clave del Evento
-* **Afectación Territorial (Coquimbo a Ñuble, excepto RM):**  
+
+* **Afectación Territorial (Regiones de Coquimbo a Ñuble, excepto RM)**  
 Las regiones comprendidas entre Coquimbo y Ñuble sufrieron estragos críticos, destacando la declaración de **_Estado de Catástrofe_** en la Región de Coquimbo y la Provincia de Huasco, daños severos en infraestructura hospitalaria (Ovalle), socavones viales en la Ruta 5 y vías costeras, y desbordes de ríos y esteros (como el río Elqui y el estero Tongoy). La Región de Valparaíso registró evacuaciones masivas por amenaza de desborde en esteros como el Marga Marga y Quilpué.
+
 * **Víctimas y Emergencia:**  
 A nivel nacional, el evento dejó un saldo preliminar de **15 fallecidos y 16 desaparecidos**, además de más de 16.000 personas damnificadas y cerca de 15.841 personas aisladas debido a la interrupción de rutas y bajadas de quebradas.
-* **Intensidad y Concentración de la Lluvia:**  
-El sistema presentó acumulados extremos y focos de alta concentración en cortos periodos. En la franja entre Coquimbo y Ñuble se registraron montos generales de **200 a 350 mm**, con máximos históricos en zonas precordilleranas y costeras, acompañados de rachas de viento destructivas y oleaje extremo con olas de hasta 5 metros.
-* **Frentes Consecutivos y Duración:**  
-El fenómeno meteorológico operó bajo una dinámica ininterrumpida de **frentes de mal tiempo encadenados ("_tren de sistemas frontales_")** desde el 14 de julio en adelante, perpetuando pulsos de precipitaciones sucesivos que impidieron el drenaje y mantuvieron los suelos en un estado crítico de saturación hídrica.
-* **Récords Históricos de Precipitación:**  
-Las intensas lluvias marcaron hitos sin precedentes ubicándose en el *top 5* histórico para un mes de julio desde que existen registros instrumentales:
-  * **La Serena (Estación La Florida):** Acumuló **200,.2 mm**, el mayor registro para un mes de julio desde 1954.
-  * **Combarbalá (Est. Samuel Román Rojas):** Alcanzó **285.5 mm**, batiendo el récord absoluto de su historial de mediciones.
-  * **Valparaíso (Est. Rodelillo / Faro Punta Ángeles):** Registró **173.6 mm** en solo 48 horas, cerrando el mes con acumulados históricos de hasta **327.3 mm**.
-  * **Chillán:** Consolidó **312.2 mm** acumulados durante el mes de julio.
+
+* **Intensidad, Concentración y Récords Históricos**  
+El sistema presentó acumulados extremos de 200 a 350 mm entre Coquimbo y Ñuble bajo una dinámica ininterrumpida de frentes encadenados ("_tren de sistemas frontales_") desde el 14 de julio, generando saturación hídrica crítica, vientos destructivos y olas de hasta 5 metros. Esto marcó hitos en el top 5 histórico de julio, destacando La Serena (Estación La Florida) con 200,2 mm (máximo desde 1954), Combarbalá con 285,5 mm (récord absoluto), Valparaíso con 173,6 mm en 48 horas y un acumulado mensual de hasta 327,3 mm, y Chillán con 312,2 mm.
 
 ---
 

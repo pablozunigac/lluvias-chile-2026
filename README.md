@@ -2,6 +2,8 @@
 
 Este repositorio contiene la infraestructura de datos, el flujo ETL (_Extract_, _Transform_, _Load_) y los modelos estadísticos diseñados para analizar las precipitaciones en Chile durante el año 2026. El objetivo es estructurar visualizaciones de datos para las series de tiempo meteorológicas pronosticadas por Windy (ECMWF) para la Región de Valparaíso para julio de 2026.
 
+Esto es una prueba  
+
 ---
 
 ## Arquitectura del Proyecto

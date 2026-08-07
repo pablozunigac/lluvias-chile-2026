@@ -2,79 +2,53 @@
 
 Este repositorio contiene la infraestructura de datos, el flujo ETL (_Extract_, _Transform_, _Load_) y los modelos estadísticos diseñados para analizar las precipitaciones en Chile durante el año 2026. El objetivo es estructurar visualizaciones de datos para las series de tiempo meteorológicas pronosticadas por Windy (ECMWF) para la Región de Valparaíso para julio de 2026.
 
-Esto es una prueba  
-
 ---
 
 ## Arquitectura del Proyecto
 
-El proyecto sigue una estructura modular para reducir la fricción en el manejo de datos y código:
-### Estructura de Archivos
-* **`./R`** : Scripts ETL (incluye formateo temporal) y dataviz
-  * `00-lectura-ETL.R` : Script principal de importación, limpieza y formateo temporal  
-* **`./data`** : Archivos de datos sin procesar
-  * `lluvia_2026_v1.csv` : Lluvias entre jueves 16 y sábado 17 de julio de 2026 (Actualización: jueves 11am)
-  * `lluvia_2026_v2.csv` : Lluvias entre jueves 16 y martes 21 de julio de 2026 (Actualización: domingo 8pm)
-* **`./output`** : Resultados, gráficos y datos procesados listos para exportación  
-### Metadatos del Repositorio GitHub
-  * `./README.md` : Documentación técnica del repositorio
-  * `./.gitignore`: Reglas de exclusión para archivos temporales y datos pesados
+El proyecto implementa una estructura modular de producción para garantizar un desacoplamiento estricto entre el procesamiento de datos crudos, la persistencia en formatos vectorizados y la capa de visualización interactiva.
+
+```text
+lluvias-chile-2026/
+├── .devcontainer/       # Configuración del entorno de desarrollo aislado (Docker/VS Code)
+├── .github/             # Flujos de trabajo de CI/CD y plantillas del repositorio
+├── data/                # Almacenamiento de datasets de precipitación
+│   ├── raw/             # Archivos CSV crudos sin procesar
+│   └── processed/       # Matrices serializadas en formato Parquet
+├── output/              # Gráficos exportados, reportes y artefactos analíticos
+├── R/                   # Scripts legados y análisis estadísticos complementarios en R
+├── src/                 # Pipeline principal de producción en Python (ETL + DataViz)
+├── .gitignore           # Reglas de exclusión para datos de control de versiones
+└── README.md            # Documentación técnica del repositorio
+```
 
 ---
 
-## Metodología y Modelo Estocástico
-Este repositorio implementa un modelo estocástico enfocado en la modelación paramétrica y el análisis de persistencia temporal de las precipitaciones pronosticadas. El flujo metodológico y analítico contempla:
+## Metodología y Modelo Analítico
 
-* **Análisis de Frecuencia Marginal**  
-Despliegue gráfico continuo de la cantidad marginal de lluvia en milímetros (mm) agregada en intervalos estricto de 3 horas.
-* **Cálculo de Persistencia y Acumulación (**_mediante_ `slider`**)**   
-Determinación de la acumulación móvil (suma) con ventana de tiempo hacia el pasado para bloques de 6, 12, 24, 36, 48, 60 y 72 horas.
-* **Análisis de Distribución Puntual**  
-Evaluación de la distribución probabilística de la lluvia pronosticada a partir de las observaciones fijas cada 3 horas, segmentadas de acuerdo a los momentos de actualización de cada conjunto de datos.
-* **Ajuste Paramétrico**  
-Ajuste de las observaciones a funciones de distribución de probabilidad para la estimación de periodos de retorno y cuantiles de eventos extremos.
-* **Visualización Integrada (**_mediante_ `plotly`**)**   
-Consolidación de todos los componentes analíticos en un único metagráfico interactivo y unificado bajo una interfaz tipo tablero de control.
+El flujo de trabajo aborda la saturación hídrica mediante el análisis de persistencia y concentración en múltiples ventanas de tiempo hacia atrás (backward rolling windows):
+* Análisis de Frecuencia Marginal: Registros discretos de precipitación (mm) agregados en intervalos de 3 horas.
+* Matriz de Saturación Multi-Ventana: Cálculo de acumulados y medias móviles vectorizadas para 9 ventanas temporales (6h,12h,24h,36h,48h,60h,72h,84h,96h).
+* Persistencia Columnar (`Parquet`): Transformación de los tipos flotantes de Excel a marcas temporales absolutas y almacenamiento binario comprimido con Snappy.
+* Visualización de Concentración: Generación de un mapa de calor (Heatmap) en Plotly para identificar los picos máximos de saturación de suelo durante el evento crítico.
 
----
+## Entorno de Desarrollo y Dependencias
 
-## Entorno de Desarrollo
-- **IDE:** Positron 2026.07.0 build 365
-- **Lenguaje:** R 4.5.2
-- **Librerías de R**
-  - `here` : Resolución de rutas absolutas basada en el anclaje raiz del proyecto
-  - `lubridate` : Transformación y tratamoiento eficiente de fechas y zonas horarias
-  - `plotly` : Gráficos interactivos y dinámicos para exploración de datos
-  - `slider` : Cálculo eficiente de ventanas móviles y promedios acumulados
-  - `tidyverse` : Colección de paquetes para ciencia de datos y transformación de estructuras
-  - `tsibble` : Estructuras de datos y herramientas optimizadas para series de tiempo
+Entorno Python (Pipeline Principal)
+Intérprete: Python 3.11+
+
+polars – Procesamiento y cálculo de medias móviles vectorizadas a alta velocidad.
+plotly – Motor de renderizado interactivo para mapas térmicos.
+pandas – Utilidades complementarias de formateo de arreglos.
 
 ---
 
-## Configuración y Reproducción
-Para ejecutar este proyecto de forma local sin errores de rutas absolutas, asegúrate de clonar el repositorio dentro de tu entorno de trabajo:
+## Entorno R (Análisis Estadístico Completo)
 
-### 1. Requisitos Previos
-* **Lenguaje:** R (versión ≥ 4.5.2)  
-*Nota: El código es agnóstico al entorno de desarrollo; puede ejecutarse de forma nativa desde la terminal o mediante IDEs como Positron o RStudio.*
+Lenguaje: R ≥ 4.5.2
+Paquetes: tidyverse, lubridate, plotly, slider, tsibble, here.
 
-### 2. Gestión de Dependencias
-Asegúrate de contar con los siguientes paquetes instalados. Puedes ejecutarlos directamente en la consola de R:
-   ```R
-   install.packages(c( 'here', 'lubridate', 'plotly', 'slider', 'tidyverse', 'tsibble'))
-   ```
 
-### 3. Clonación e Inicio
-Clona este repositorio en tu máquina local:
-  ```bash
-  git clone https://github.com/pablozunigac/lluvias-chile-2026.git
-  ```
-
-### 4. Ejecución de Código
-Para procesar los datos crudos y ejecutar el modelo, ejecuta el _script_ principal desde la consola de R:
-  ```R
-  source('R/00-lectura-ETL.R')
-  ```
 
 ---
 

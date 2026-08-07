@@ -27,9 +27,12 @@ lluvias-chile-2026/
 ## Metodología y Modelo Analítico
 
 El flujo de trabajo aborda la saturación hídrica mediante el análisis de persistencia y concentración en múltiples ventanas de tiempo hacia atrás (backward rolling windows):
-* Análisis de Frecuencia Marginal: Registros discretos de precipitación (mm) agregados en intervalos de 3 horas.
-* Matriz de Saturación Multi-Ventana: Cálculo de acumulados y medias móviles vectorizadas para 9 ventanas temporales (6h,12h,24h,36h,48h,60h,72h,84h,96h).
-* Persistencia Columnar (`Parquet`): Transformación de los tipos flotantes de Excel a marcas temporales absolutas y almacenamiento binario comprimido con Snappy.
+* Análisis de Frecuencia Marginal  
+Registros discretos de precipitación (mm) agregados en intervalos de 3 horas.
+* Matriz de Saturación Multi-Ventana  
+Cálculo de acumulados y medias móviles vectorizadas para ventanas temporales de 6h y de entre 12h y 96h en intervalos de 12h.
+* Persistencia Columnar (`Parquet`)
+Transformación de los tipos flotantes de Excel a marcas temporales absolutas y almacenamiento binario comprimido con Snappy.
 * Visualización de Concentración: Generación de un mapa de calor (Heatmap) en Plotly para identificar los picos máximos de saturación de suelo durante el evento crítico.
 
 ## Entorno de Desarrollo y Dependencias
@@ -37,20 +40,41 @@ El flujo de trabajo aborda la saturación hídrica mediante el análisis de pers
 Entorno Python (Pipeline Principal)
 Intérprete: Python 3.11+
 
-polars – Procesamiento y cálculo de medias móviles vectorizadas a alta velocidad.
-plotly – Motor de renderizado interactivo para mapas térmicos.
-pandas – Utilidades complementarias de formateo de arreglos.
+`polars` – Procesamiento y cálculo de medias móviles vectorizadas a alta velocidad.
+`plotly` – Motor de renderizado interactivo para mapas térmicos.
+`pandas` – Utilidades complementarias de formateo de arreglos.
 
 ---
 
 ## Entorno R (Análisis Estadístico Completo)
 
 Lenguaje: R ≥ 4.5.2
-Paquetes: tidyverse, lubridate, plotly, slider, tsibble, here.
-
-
+Paquetes: `tidyverse`, `lubridate`, `plotly`, `slider`, `tsibble`, `here`.
 
 ---
+
+## Configuración y Reproducción
+
+### Clonar el Repositorio
+```bash
+git clone [https://github.com/pablozunigac/lluvias-chile-2026.git](https://github.com/pablozunigac/lluvias-chile-2026.git)
+cd lluvias-chile-2026
+```
+
+### Instalar Dependencias de Python
+```bash
+python3 -m pip install polars plotly pandas
+```
+
+### Ejecutar el Pipeline ETL y Visualización
+```bash
+python3 src/csv_to_parquet.py
+```
+
+### Ejecutar el Pipeline en R (Opcional)
+```bash
+source('R/00-lectura-ETL.R')
+```
 
 ## Perfil Profesional y Contacto
 

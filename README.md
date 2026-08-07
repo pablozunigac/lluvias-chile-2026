@@ -31,7 +31,7 @@ El flujo de trabajo aborda la saturación hídrica mediante el análisis de pers
 Registros discretos de precipitación (mm) agregados en intervalos de 3 horas.
 * **Matriz de Saturación Multi-Ventana**  
 Cálculo de acumulados y medias móviles vectorizadas para ventanas temporales de 6h y de entre 12h y 96h en intervalos de 12h.
-* **Persistencia Columnar (`Parquet`)**
+* **Persistencia Columnar (`Parquet`)**  
 Transformación de los tipos flotantes de Excel a marcas temporales absolutas y almacenamiento binario comprimido con Snappy.
 * **Visualización de Concentración**  
 Generación de un mapa de calor (Heatmap) en Plotly para identificar los picos máximos de saturación de suelo durante el evento crítico.

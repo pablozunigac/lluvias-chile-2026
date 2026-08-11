@@ -1,14 +1,14 @@
 # Modelo Estadístico para las Lluvias de 2026 en Chile
 
-Este repositorio implementa una infraestructura analítica avanzada para la evaluación de eventos de precipitación extrema, intensidad de tormenta y saturación hídrica progresiva. Su propósito central es modelar la persistencia temporal de los frentes de mal tiempo mediante matrices de acumulación multi-ventana, caracterización de valores extremos y mapas de calor interactivos, permitiendo anticipar el riesgo hídrico en entornos urbanos, agrícolas y mineros. 
+Este repositorio implementa una infraestructura analítica avanzada para la evaluación de eventos de precipitación extrema y saturación hídrica progresiva. Su propósito central es modelar la persistencia temporal de los frentes de mal tiempo mediante matrices de acumulación multi-ventana temporal, caracterización de valores extremos y mapas de calor interactivos, permitiendo anticipar el riesgo hídrico en zonas con asentaminetos domilicialios y productivos.
 
-Diseñado para traducir datos crudos de precipitación en métricas accionables de soporte a la decisión, el sistema evalúa la acumulación de lluvia sobre ventanas móviles de 6 a 96 horas para predecir escenarios de saturación de suelos, riesgo de aluviones e interrupción de infraestructura crítica.
+Diseñado para traducir datos de precipitación en métricas accionables, el sistema evalúa la acumulación de lluvia sobre ventanas móviles de 6 a 96 horas para predecir situaciones críticas, el horario de posibles evacuaciones, escenarios de saturación de suelos, riesgo de aluviones e interrupción de infraestructura crítica.
 
 ---
 
 ## Contexto Climatológico e Histórico: Temporal de Chile (Julio 2026)
 
-El análisis se enmarca en el **Temporal de Chile de julio de 2026**, un evento meteorológico de magnitud extraordinaria caracterizado por la entrada de un río atmosférico de Categoría 5 y una dinámica de "tren de sistemas frontales" encadenados, potenciados por la fase cálida del ciclo ENOS (El Niño).
+Este análisis se enmarca en el **Temporal de Chile de julio de 2026**, un evento meteorológico de magnitud extraordinaria caracterizado por la entrada de un río atmosférico de Categoría 5 y una dinámica de "*_tren de sistemas frontales_*" encadenados, potenciados por la fase cálida del ciclo ENOS, también conocido como «_El Niño_».
 
 ### Impacto Territorial y Récords Hidrometeorológicos
 
@@ -20,13 +20,11 @@ El análisis se enmarca en el **Temporal de Chile de julio de 2026**, un evento 
 
 ## Origen y Estructura de los Datos
 
-Los datos analizados provienen de registros de precipitación en tiempo casi real recopilados mediante *scraping* estructurado e integración del modelo **ECMWF (European Centre for Medium-Range Weather Forecasts)** a través de la plataforma Windy.
+Los datos analizados provienen de registros de precipitación recopilados mediante _scraping_ estructurado e integración del modelo **ECMWF (European Centre for Medium-Range Weather Forecasts)** a través de la plataforma Windy.com.
 
 * **Frecuencia de Muestreo:** Registros discretos agregados en intervalos de 3 horas.
 * **Estructura Cruda (`data/raw/Lluvia_2026_v2.csv`):**
-  * `fecha`: Formato serial flotante (días transcurridos desde el origen cronológico 1899-12-30).
-  * `hora`: Intervalos enteros de 0 a 21 horas (pasos de 3h).
-  * `lluvia_mm`: Precipitación acumulada en el intervalo en milímetros (mm).
+* **Variables del _scraping_:** `fecha`, `hora`, `lluvia_mm`
 
 ---
 
@@ -35,23 +33,21 @@ Los datos analizados provienen de registros de precipitación en tiempo casi rea
 El proyecto mantiene un desacoplamiento estricto entre los datos primarios, la exploración interactiva, el código fuente modular de producción y los artefactos exportados.
 
 lluvias-chile-2026/
-├── .devcontainer/       # Configuración de entorno aislado en Docker / VS Code
-├── .github/             # Pipelines de CI/CD para automatización y GitHub Pages
-├── data/                # Gestión de datasets
-│   ├── processed/       # Matrices serializadas en Parquet con tipos optimizados
-│   └── raw/             # Archivos CSV crudos (Lluvia_2026_v1.csv, Lluvia_2026_v2.csv)
-├── node_modules/        # Dependencias de herramientas auxiliares JS
-├── notebooks/           # Entorno de exploración, AED e hipótesis de modelado
-│   └── 01_aed_lluvias.ipynb
-├── output/              # Gráficos vectoriales, reportes HTML y artefactos finales
-├── R/                   # Scripts legados y procesamiento estadístico complementario
-├── src/                 # Código fuente modular de producción en Python
+├── .github/                    # _Pipelines_ de CI/CD para automatización y GitHub Pages
+├── .vscode/                    # Gestión de datasets
+├── data/                       # Gestión de datasets
+│   ├── processed/              # Matrices serializadas en Parquet con tipos optimizados
+│   └── raw/                    # Archivos CSV crudos (Lluvia_2026_v1.csv, Lluvia_2026_v2.csv)
+├── notebooks/                  # Entorno de exploración, AED e hipótesis de modelado
+│   └── 01_aed_lluvias.ipynb    
+├── output/                     # Gráficos vectoriales, reportes y artefactos finales
+├── R/                          # Scripts legados y procesamiento estadístico complementario
+├── src/                        # Código fuente modular de producción en Python
 │   ├── csv_to_parquet.py
-│   └── open_meteo.js
-├── .gitignore           # Exclusión de archivos pesados y temporales
-├── package-lock.json
-├── package.json
-└── README.md            # Documentación técnica del proyecto
+├── .gitignore                  # Exclusión de archivos pesados y temporales
+├── package-lock.json           #
+├── package.json                # 
+└── README.md                   # Documentación técnica del proyecto
 
 ---
 
@@ -86,7 +82,7 @@ F(x) = exp(-exp(-(x - mu) / beta))
 
 ---
 
-## Evaluación y Validaciones del Modelo
+## Evaluación y Validación del Modelo
 
 1. **Monotonicidad de la Suma Acumulada:** Se verifica formalmente que SUM(P(t)) >= SUM(P(t-1)), validando la ausencia de valores negativos o discontinuidades en los sensores.
 2. **Efecto de Borde por Inicialización:** Documentación explícita de los valores `null` generados por el parámetro `min_samples = h // 3`. Representa la ventana de calentamiento necesaria para que la métrica de saturación hídrica sea estadísticamente válida.
@@ -94,33 +90,40 @@ F(x) = exp(-exp(-(x - mu) / beta))
 
 ---
 
-## Estrategia de Despliegue (Deployment)
+## Estrategia de Despliegue
 
 El proyecto adopta un enfoque de despliegue progresivo de estándar industrial:
 
-* **Fase Exploratoria (`notebooks/01_aed_lluvias.ipynb`):** Prototipado rápido, inspección de calidad de datos y validación de hipótesis visuales.
-* **Fase de Producción (`src/`):** Modularización del código del notebook en funciones puras y scripts ejecutables (`csv_to_parquet.py`) listos para ser orquestados por tareas programadas (Cron/Airflow).
-* **Fase de Reportabilidad y Dashboarding (GitHub Pages):** Renderizado y publicación del reporte HTML interactivo accesible de forma pública en `https://pablozunigac.github.io/lluvias-chile-2026/`.
+* **Fase Exploratoria (`notebooks/01_aed_lluvias.ipynb`):** Prototipado de _notebook_ Jupyter, lectura inicial y visualización de datos para validación conceptual.
+* **Fase de Producción (`src/`):** Modularización del código del _notebook_ en funciones puras y scripts ejecutables (ej.: `src/csv_to_parquet.py`) listos para ser orquestados por tareas programadas.
+* **Fase de Reportabilidad y Dashboarding (GitHub Pages):** Renderizado y publicación del reporte web interactivo accesible de forma pública mediante [GitHub Pages](https://pablozunigac.github.io/lluvias-chile-2026).
 
 ---
 
 ## Configuración y Reproducción
 
-### 1. Clonar el Repositorio
+### 1 Clonar el Repositorio
+
+``` Bash
 git clone https://github.com/pablozunigac/lluvias-chile-2026.git
 cd lluvias-chile-2026
+```
 
-### 2. Entorno y Dependencias
+### 2 Entorno y Dependencias
 Se recomienda utilizar Python 3.11+. Para instalar las dependencias exactas del proyecto:
 
+``` Bash
 python3 -m pip install polars plotly pandas nbformat
+```
 
-### 3. Ejecución del Notebook Exploratorio
+### 3 Ejecución del Notebook Exploratorio
 Para abrir y correr el análisis interactivo completo:
 
+``` Bash
 jupyter notebook notebooks/01_aed_lluvias.ipynb
+```
 
-### 4. Ejecución del Pipeline ETL a Parquet
+### 4 Ejecución del Pipeline ETL a Parquet
 Para ejecutar el procesamiento en lote y generar el archivo persistido:
 
 ``` Bash

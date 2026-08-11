@@ -1,0 +1,25 @@
+project:
+  type: site
+  output-dir: ../_site
+  render:
+    - "index.qmd"
+
+site:
+  title: "Modelo Estadístico de Lluvias Chile 2026"
+  site-url: "https://tu-usuario.github.io/lluvias-chile-2026/"
+  navbar:
+    left:
+      - href: index.qmd
+        text: "Reporte Ejecutivo"
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    toc-depth: 3
+    code-fold: true
+    code-summary: "Ver código Python/R"
+    html-math-method: katex
+
+execute:
+  freeze: auto

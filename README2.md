@@ -45,8 +45,6 @@ lluvias-chile-2026/
 ├── src/                        # Código fuente modular de producción en Python
 │   ├── csv_to_parquet.py
 ├── .gitignore                  # Exclusión de archivos pesados y temporales
-├── package-lock.json           #
-├── package.json                # 
 └── README.md                   # Documentación técnica del proyecto
 
 ---

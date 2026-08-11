@@ -1,0 +1,30 @@
+---
+title: "Análisis Exploratorio de Lluvias en Chile (2026)"
+author: "Equipo de Analytics"
+date: "2026-08-11"
+---
+
+# Introducción y Objetivos
+
+Este reporte evalúa la precipitación acumulada en la zona central de Chile mediante modelos estadísticos avanzados y datos procesados en formato Parquet.
+
+## Formulación Matemática
+
+El modelo de probabilidad de precipitación extrema $P(X > x)$ se define mediante la distribución de valores extremos de Gumbel:
+
+$$F(x; \mu, \beta) = \exp \left( -\exp \left( -\frac{x - \mu}{\beta} \right) \right)$$
+
+Donde $\mu$ representa la ubicación escalar y $\beta$ el parámetro de escala.
+
+---
+
+## Visualización Interactiva (D3 / Web Component Test)
+
+::: {#viz-container style="padding: 15px; border: 1px solid #ccc; border-radius: 6px; background-color: #f9f9f9;"}
+:::
+
+<script type="module">
+  // Prueba básica de renderizado interactivo en cliente
+  const container = document.getElementById("viz-container");
+  container.innerHTML = "<p><strong>[Status OK]</strong> Módulo de DataViz de Quarto cargado correctamente.</p>";
+</script>

@@ -123,7 +123,9 @@ jupyter notebook notebooks/01_aed_lluvias.ipynb
 ### 4. Ejecución del Pipeline ETL a Parquet
 Para ejecutar el procesamiento en lote y generar el archivo persistido:
 
+``` Bash
 python3 src/csv_to_parquet.py
+```
 
 ---
 

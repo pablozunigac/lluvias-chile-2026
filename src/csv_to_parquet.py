@@ -1,11 +1,13 @@
+# %% [1] Importación de librerías y rutas
 from pathlib import Path
 import plotly.express as px
 import polars as pl
 
-# Rutas del proyecto
+# %% [2] # Rutas del proyecto
 BASE_DIR = Path(__file__).resolve().parent.parent
 RAW_CSV_PATH = BASE_DIR / "data" / "raw" / "Lluvia_2026_v2.csv"
 PROCESSED_PARQUET_PATH = BASE_DIR / "data" / "processed" / "lluvia_2026.parquet"
+
 
 def process_rain_matrix_and_visualize() -> None:
     if not RAW_CSV_PATH.exists():
@@ -101,5 +103,8 @@ def process_rain_matrix_and_visualize() -> None:
     # Abrir el Mapa de Calor en el navegador por defecto
     fig.show()
 
+
+
 if __name__ == "__main__":
     process_rain_matrix_and_visualize()
+# %%

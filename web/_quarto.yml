@@ -6,7 +6,7 @@ project:
 
 site:
   title: "Modelo Estadístico de Lluvias Chile 2026"
-  site-url: "https://tu-usuario.github.io/lluvias-chile-2026/"
+  site-url: "https://pablozunigac.github.io/lluvias-chile-2026/"
   navbar:
     left:
       - href: index.qmd

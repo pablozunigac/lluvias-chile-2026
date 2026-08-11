@@ -13,7 +13,7 @@ El análisis se enmarca en el **Temporal de Chile de julio de 2026**, un evento 
 ### Impacto Territorial y Récords Hidrometeorológicos
 
 * **Mapeo de Afectación (Coquimbo a Ñuble):** Declaración de *Estado de Catástrofe* en la Región de Coquimbo y la Provincia de Huasco. Desbordes masivos de cauces (Río Elqui, Estero Tongoy, Estero Marga Marga y Estero Quilpué en la Región de Valparaíso), socavamiento de infraestructura vial en la Ruta 5 y aislamiento de localidades por bajadas de quebradas.
-* **Magintud del Desastre:** Saldo nacional preliminar de 15 fallecidos, 16 desaparecidos, más de 16.000 personas damnificadas y sobre 15.800 personas en estado de aislamiento por falla de conectividad crítica.
+* **Magnitud del Desastre:** Saldo nacional preliminar de 15 fallecidos, 16 desaparecidos, más de 16.000 personas damnificadas y sobre 15.800 personas en estado de aislamiento por falla de conectividad crítica.
 * **Anomalía de Precipitación y Récords:** Registro de acumulados continuos entre 200 mm y 350 mm en menos de 72 horas. Destacan los hitos históricos de la Estación La Florida (La Serena) con 200.2 mm (máximo histórico desde 1954), Combarbalá con 285.5 mm (récord absoluto registrado), Valparaíso con 173.6 mm en 48 horas (acumulado mensual de 327.3 mm) y Chillán con 312.2 mm.
 
 ---
@@ -34,7 +34,6 @@ Los datos analizados provienen de registros de precipitación en tiempo casi rea
 
 El proyecto mantiene un desacoplamiento estricto entre los datos primarios, la exploración interactiva, el código fuente modular de producción y los artefactos exportados.
 
-```text
 lluvias-chile-2026/
 ├── .devcontainer/       # Configuración de entorno aislado en Docker / VS Code
 ├── .github/             # Pipelines de CI/CD para automatización y GitHub Pages
@@ -53,3 +52,82 @@ lluvias-chile-2026/
 ├── package-lock.json
 ├── package.json
 └── README.md            # Documentación técnica del proyecto
+
+---
+
+## Pipeline ETL (Extract, Transform, Load)
+
+El pipeline de datos está construido sobre **Polars** para garantizar máxima velocidad de procesamiento en memoria mediante ejecución vectorizada:
+
+1. **Extract:** Lectura resuelta mediante `pathlib` dinámico para garantizar portabilidad entre SO, con esquema tipado explícito (`hora` -> `Int32`, `fecha` -> `Float64`, `lluvia_mm` -> `Float64`).
+2. **Transform:**
+   * Reconstrucción del sello temporal absoluto (`datetime`): Conversión de la fecha flotante de serial Excel a `Date` y posterior combinación vectorial con el entero de hora.
+   * Ordenamiento cronológico garantizado (`sort("datetime")`).
+3. **Load:** Exportación en formato columnar **Parquet** en `data/processed/lluvia_2026_matrix.parquet`, preservando metadatos de tipo y nulos de inicialización.
+
+---
+
+## Modelo Analítico y Caracterización Estadística
+
+### 1. Matriz de Saturación Multi-Ventana (Backward Rolling Windows)
+Para medir la persistencia del temporal, se calcula una matriz de medias móviles (MA) para ventanas de h en {6, 12, 24, 36, 48, 60, 72, 84, 96} horas:
+
+MA_h(t) = (1 / k) * SUM(P(t - i))
+
+Donde P(t) es la precipitación en el tiempo t y k = h / 3 representa el número de periodos de 3 horas contenidos en la ventana h.
+
+### 2. Análisis Descriptivo y Métricas Climatológicas
+* **Medidas de Tendencia Central y Dispersión:** Evaluación de la media móvil, acumulado total y varianza sobre la serie temporal para identificar el régimen de precipitación.
+* **Ajuste a Distribuciones de Valores Extremos:** Modelación de los picos de intensidad mediante la **Distribución Gumbel** para la estimación de periodos de retorno (T) de eventos de h-horas:
+  
+F(x) = exp(-exp(-(x - mu) / beta))
+
+* **Dataviz Matrix (Heatmap Temporal):** Representación bidimensional mediante `Plotly Express` donde el eje X representa la línea del tiempo, el eje Y las ventanas de acumulación (h) y el canal de color (Reds) la intensidad promedio en mm/h.
+
+---
+
+## Evaluación y Validaciones del Modelo
+
+1. **Monotonicidad de la Suma Acumulada:** Se verifica formalmente que SUM(P(t)) >= SUM(P(t-1)), validando la ausencia de valores negativos o discontinuidades en los sensores.
+2. **Efecto de Borde por Inicialización:** Documentación explícita de los valores `null` generados por el parámetro `min_samples = h // 3`. Representa la ventana de calentamiento necesaria para que la métrica de saturación hídrica sea estadísticamente válida.
+3. **Sensibilidad de Saturación Operativa:** Identificación del punto de inflexión donde las ventanas de 24h y 48h superan los umbrales críticos de absorción del suelo, señalando el inicio del riesgo aluvial.
+
+---
+
+## Estrategia de Despliegue (Deployment)
+
+El proyecto adopta un enfoque de despliegue progresivo de estándar industrial:
+
+* **Fase Exploratoria (`notebooks/01_aed_lluvias.ipynb`):** Prototipado rápido, inspección de calidad de datos y validación de hipótesis visuales.
+* **Fase de Producción (`src/`):** Modularización del código del notebook en funciones puras y scripts ejecutables (`csv_to_parquet.py`) listos para ser orquestados por tareas programadas (Cron/Airflow).
+* **Fase de Reportabilidad y Dashboarding (GitHub Pages):** Renderizado y publicación del reporte HTML interactivo accesible de forma pública en `https://pablozunigac.github.io/lluvias-chile-2026/`.
+
+---
+
+## Configuración y Reproducción
+
+### 1. Clonar el Repositorio
+git clone https://github.com/pablozunigac/lluvias-chile-2026.git
+cd lluvias-chile-2026
+
+### 2. Entorno y Dependencias
+Se recomienda utilizar Python 3.11+. Para instalar las dependencias exactas del proyecto:
+
+python3 -m pip install polars plotly pandas nbformat
+
+### 3. Ejecución del Notebook Exploratorio
+Para abrir y correr el análisis interactivo completo:
+
+jupyter notebook notebooks/01_aed_lluvias.ipynb
+
+### 4. Ejecución del Pipeline ETL a Parquet
+Para ejecutar el procesamiento en lote y generar el archivo persistido:
+
+python3 src/csv_to_parquet.py
+
+---
+
+## Perfil Profesional y Contacto
+
+**Perfil Profesional & Reportes:** [pablozunigac.github.io ↗](https://pablozunigac.github.io)  
+**Contacto Directo:** [pablo.zuniga.c@gmail.com](mailto:pablo.zuniga.c@gmail.com)

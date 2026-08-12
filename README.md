@@ -34,21 +34,32 @@ El proyecto mantiene un desacoplamiento estricto entre los datos primarios, la e
 
 ```text
 lluvias-chile-2026/
-├── _site/                      # Artefacto estático compilado listo para despliegue en GitHub Pages
-├── .github/                    # Pipelines de CI/CD para automatización y GitHub Pages
-├── .vscode/                    # Configuración del entorno de desarrollo local, linters y ajustes de editor
-├── data/                       # Gestión de datasets
-│   ├── processed/              # Matrices serializadas en Parquet con tipos optimizados
-│   └── raw/                    # Archivos CSV crudos (Lluvia_2026_v1.csv, Lluvia_2026_v2.csv)
-├── notebooks/                  # Entorno de exploración, AED e hipótesis de modelado
+├── .github/
+│   └── workflows/
+│       └── deploy.yml           # Pipeline CI/CD para compilación y despliegue a GitHub Pages
+├── .vscode/                     # Configuración de workspace local, linters y ajustes de editor
+├── data/                        # Almacenamiento y gestión de datasets
+│   ├── processed/               # Matrices serializadas en .parquet con tipos optimizados
+│   └── raw/                     # Telemetría meteorológica cruda en .csv
+├── notebooks/                   # Sandboxes .ipynb de exploración, AED e hipótesis de modelado
 │   └── 01_aed_lluvias.ipynb    
-├── output/                     # Gráficos vectoriales, reportes y artefactos finales
-├── R/                          # Scripts legados y procesamiento estadístico complementario
-├── src/                        # Código fuente modular de producción en Python
-│   ├── csv_to_parquet.py
-├── web/                        # Motor de documentación interactiva Quarto (fuentes .qmd y _quarto.yml)
-├── .gitignore                  # Exclusión de archivos pesados y temporales
-└── README.md                   # Documentación técnica del proyecto
+├── output/                      # Artefactos analíticos y reportes finales
+│   ├── data_exports/            # Resúmenes consolidados en .csv/.xlsx
+│   └── reports/                 # Reportes estáticos exportados (.pdf/.html)
+├── src/                         # Código fuente modular .py de producción en Python
+│   └── csv_to_parquet.py
+├── tests/                       # Pruebas unitarias e integración .py (pytest)
+│   ├── test_etl.py              # Validación del pipeline Polars y esquema .parquet
+│   └── test_model.py            # Tests de consistencia matemática
+├── web/                         # Motor de documentación interactiva en Quarto
+│   ├── assets/                  # Recursos gráficos finales (.png, .SVG, diagramas)
+│   ├── _quarto.yml              # Configuración global del sitio interactivo
+│   ├── aed.qmd                  # Documentación del pipeline de ingesta
+│   ├── index.qmd                # Resumen ejecutivo e impacto operativo
+│   └── modelo.qmd               # Modelación matemática EVT
+├── .gitignore                   # Reglas de exclusión para archivos pesados y temporales
+├── pyproject.toml               # Definición estándar del proyecto y dependencias (PEP 621)
+└── README.md                    # Documentación técnica principal del repositorio
 ```
 
 ## Origen y Estructura de los Datos

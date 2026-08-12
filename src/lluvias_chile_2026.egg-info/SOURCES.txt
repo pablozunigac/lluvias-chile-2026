@@ -1,8 +1,0 @@
-README.md
-pyproject.toml
-src/csv_to_parquet.py
-src/lluvias_chile_2026.egg-info/PKG-INFO
-src/lluvias_chile_2026.egg-info/SOURCES.txt
-src/lluvias_chile_2026.egg-info/dependency_links.txt
-src/lluvias_chile_2026.egg-info/requires.txt
-src/lluvias_chile_2026.egg-info/top_level.txt

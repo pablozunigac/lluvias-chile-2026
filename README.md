@@ -2,7 +2,7 @@
 
 Este repositorio implementa una infraestructura analítica avanzada para la evaluación de eventos de precipitación extrema y saturación hídrica. Su propósito central es modelar la persistencia temporal de los frentes de mal tiempo mediante matrices de acumulación multi-ventana y mapas de calor interactivos, permitiendo anticipar el riesgo sistémico en contextos urbanos y rurales. Diseñado para mitigar escenarios críticos como desbordes fluviales, anegamientos severos e interrupción de infraestructura crítica, el sistema traduce pronósticos meteorológicos complejos en métricas accionables para la gestión de crisis y la toma de decisiones operativas en tiempo real.
 
-![Mapa de Calor: Acumulación por ventanas de tiempo variables](output/assets/rain_heatmap_01.png)
+![Mapa de Calor: Acumulación por ventanas de tiempo variables](output/assets/heatmap_01.png)
 
 ## Contexto Climatológico e Histórico: El Temporal de Chile (Julio 2026)
 
@@ -113,32 +113,30 @@ Renderizado y publicación del reporte web interactivo accesible de forma públi
 
 ## Configuración y Reproducción
 
-### Clonación del Repositorio
+#### Clonación del Repositorio
 
 ``` Bash
 git clone https://github.com/pablozunigac/lluvias-chile-2026.git
 cd lluvias-chile-2026
 ```
 
-### Entorno y Dependencias (`Python 3.11+`)
+#### Entorno y Dependencias (`Python 3.11+`)
 
 ```Bash
 python3 -m pip install polars plotly
 ```
 
-### Ejecución del _Notebook_ Exploratorio
+#### Ejecución del _Notebook_ Exploratorio
 
 ``` Bash
 jupyter notebook notebooks/01_aed_lluvias.ipynb
 ```
 
-### Ejecución del Pipeline ETL a Parquet
+#### Ejecución del Pipeline ETL a Parquet
 
 ``` Bash
 python3 src/csv_to_parquet.py
 ```
-
----
 
 ## Perfil Profesional y Contacto
 

@@ -2,6 +2,8 @@
 
 Este repositorio implementa una infraestructura analítica avanzada para la evaluación de eventos de precipitación extrema y saturación hídrica. Su propósito central es modelar la persistencia temporal de los frentes de mal tiempo mediante matrices de acumulación multi-ventana y mapas de calor interactivos, permitiendo anticipar el riesgo sistémico en contextos urbanos y rurales. Diseñado para mitigar escenarios críticos como desbordes fluviales, anegamientos severos e interrupción de infraestructura crítica, el sistema traduce pronósticos meteorológicos complejos en métricas accionables para la gestión de crisis y la toma de decisiones operativas en tiempo real.
 
+![Mapa de Calor: Acumulación por ventanas de tiempo variables](output/assets/rain_heatmap.png)
+
 ## Contexto Climatológico e Histórico: El Temporal de Chile (Julio 2026)
 
 En julio de 2026, la zona centro-norte de Chile enfrentó un evento hidrometeorológico crítico originado por el ingreso de un **río atmosférico de Categoría 5** acoplado a un tren de sistemas frontales encadenados, fenómeno intensificado por la fase cálida de El Niño. El evento causó una emergencia de escala nacional entre las regiones de Coquimbo y Ñuble, impactando severamente asentamientos urbanos, cadenas productivas y conectividad vial.
@@ -51,7 +53,7 @@ lluvias-chile-2026/
 
 ## Origen y Estructura de los Datos
 
-Los datos analizados provienen de registros de precipitación recopilados mediante _scraping_ estructurado e integración del modelo **ECMWF (European Centre for Medium-Range Weather Forecasts)** a través de la plataforma Windy.com.
+Los datos analizados provienen de registros de precipitación recopilados mediante _scraping_ estructurado e integración del modelo **ECMWF (_European Centre for Medium-Range Weather Forecasts_)** a través de la plataforma Windy.com.
 
 * **Frecuencia de Muestreo:** Intervalos de 3 horas.
 * **Estructura Cruda:** `data/raw/Lluvia_2026_v2.csv`
@@ -87,7 +89,8 @@ Donde $\mu$ es el parámetro de localización (centro de la distribución de pic
 
 ## Evaluación y Validación del Modelo
 
-* **Monotonicidad de la Suma Acumulada:** Se verifica formalmente la condición de no negatividad y continuidad en las lecturas de los sensores, lo que garantiza la coherencia temporal y la ausencia de valores anómalos o discontinuidades:
+* **Monotonicidad de la Suma Acumulada:**  
+Se verifica formalmente la condición de no negatividad y continuidad en las lecturas de los sensores, lo que garantiza la coherencia temporal y la ausencia de valores anómalos o discontinuidades:
 
 $$\sum_{i=0}^{t} P(i) \ge \sum_{i=0}^{t-1} P(i) \quad \forall t$$
 

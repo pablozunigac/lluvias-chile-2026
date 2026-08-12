@@ -130,26 +130,24 @@ Antes de comenzar, asegúrate de contar con lo siguiente en tu sistema:
 
 * **Git:** Para la clonación del repositorio.
 * **uv:** Gestor de paquetes y entornos virtuales de Python (versión >= 0.12).
-* **Python 3.11+** *(opcional)*: No es estrictamente necesario tenerlo instalado, `uv` lo descargará e instalará automáticamente si tu sistema no lo detecta.
+* **Python 3.11+** *(opcional)*: No es estrictamente necesario tenerlo instalado, `uv` lo descargará e instalará automáticamente si es necesario.
 
-#### Instalación Rápida de `uv`
-
-**macOS/Linux (Bash/Zsh):**
+**Instalación Rápida de `uv` en macOS/Linux (Bash/Zsh):**
   ```bash
-  curl -LsSf [https://astral.sh/uv/install.sh](https://astral.sh/uv/install.sh) | sh
+  curl -LsSf https://astral.sh/uv/install.sh | sh
   ```
 
-**Windows (PowerShell):**
+**Instalación Rápida de `uv` en Windows (PowerShell):**
   ```powershell
-  powershell -ExecutionPolicy ByPass -c "irm [https://astral.sh/uv/install.ps1](https://astral.sh/uv/install.ps1) | iex"
+  powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
   ```
 
-### Instalación y Entorno 
+### Instalación, Entorno y Ejecución
 
 **Paso 1: Clonar el repositorio**
 
 ```bash
-git clone [https://github.com/pablozunigac/lluvias-chile-2026.git](https://github.com/pablozunigac/lluvias-chile-2026.git)
+git clone https://github.com/pablozunigac/lluvias-chile-2026.git
 cd lluvias-chile-2026
 ```
 
@@ -158,8 +156,6 @@ cd lluvias-chile-2026
 ```bash
 uv sync
 ```
-
-### Ejecución del Proyecto
 
 **Paso Opcional: *Notebook* Exploratorio**
 

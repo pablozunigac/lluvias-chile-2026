@@ -1,11 +1,50 @@
-# Archivos del sistema operativo (Mac)
+# ==========================================
+# 1. Sistema Operativo y Entornos de IDE
+# ==========================================
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+.vscode/
 
-# Datos locales (nunca subir bases de datos pesadas a Git)
-*.xls
-*.xlsx
-
-# Archivos temporales de R y Positron
+# ==========================================
+# 2. Entornos de Desarrollo (R & Positron)
+# ==========================================
 .Rhistory
 .Rdata
+.RData
 .Rproj.user/
+.Rapp.history
+
+# ==========================================
+# 3. Entornos de Desarrollo (Python)
+# ==========================================
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+env/
+venv/
+.ipynb_checkpoints/
+
+# ==========================================
+# 4. Caché y Compilaciones de Quarto
+# ==========================================
+_site/
+web/_site/
+.quarto/
+web/.quarto/
+**/*.quarto_ipynb
+
+# ==========================================
+# 5. Archivos de Datos Locales y Temporales
+# ==========================================
+*.xls
+*.xlsx
+*.csv.tmp
+*.tmp
+data/raw/*
+!data/raw/.gitkeep

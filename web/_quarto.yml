@@ -1,10 +1,10 @@
 project:
-  type: site
-  output-dir: ../_site
+  type: website
+  output-dir: _site
   render:
     - "index.qmd"
 
-site:
+website:
   title: "Modelo Estadístico de Lluvias Chile 2026"
   site-url: "https://pablozunigac.github.io/lluvias-chile-2026/"
   navbar:

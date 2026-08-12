@@ -19,10 +19,9 @@ Se registraron socavamientos mayores en la Ruta 5 y vías costeras, daños en la
 
 El frente descargó acumulados continuos de **200 a 350 mm en menos de 72 horas**, alcanzando hitos no registrados en décadas:
 
-* **La Serena (Estación La Florida):** 200.2 mm, el registro más alto para la zona desde 1954.
+* **La Serena:** 200.2 mm, el registro más alto para la zona desde 1954.
 * **Combarbalá:** 285.5 mm, marcando un récord histórico absoluto.
 * **Valparaíso:** 173.6 mm en 48 horas, acumulando un total mensual de 327.3 mm.
-* **Chillán:** 312.2 mm acumulados durante el evento.
 
 ### Respuesta Analítica e Infraestructura de Datos
 
@@ -84,7 +83,7 @@ El pipeline de datos está construido sobre **Polars** para garantizar máxima v
 
 ### Matriz de Saturación Multi-Ventana
 
-Para medir la persistencia temporal, el modelo calcula una matriz de medias móviles ($\text{MA}$) sobre las ventanas temporales $h \in \{6, 12, 24, 36, 48, 60, 72, 84, 96\}$ horas:
+Para medir la persistencia temporal, el modelo calcula una matriz de medias móviles ($\text{MA}$) sobre las ventanas temporales $h \in  \6 \cup {\12, 24, ..., 96\}$ horas:
 
 $$\text{MA}_h(t) = \frac{1}{k} \sum_{i=0}^{k-1} P(t - i)$$
 
@@ -103,7 +102,7 @@ Donde $\mu$ es el parámetro de localización (centro de la distribución de pic
 * **Monotonicidad de la Suma Acumulada:**  
 Se verifica formalmente la condición de no negatividad y continuidad en las lecturas de los sensores, lo que garantiza la coherencia temporal y la ausencia de valores anómalos o discontinuidades:
 
-$$\sum_{i=0}^{t} P(i) \ge \sum_{i=0}^{t-1} P(i) \quad \forall t$$
+$$\sum_{i=0}^{t} P(i) \ge \sum_{i=0}^{t-1} P(i) \quad , \forall t$$
 
 * **Efecto de Borde por Inicialización**  
 Documentación explícita de los valores `null` generados por el parámetro `min_samples = h/3`. Representa la ventana de calentamiento necesaria para que la métrica de saturación hídrica sea estadísticamente válida.
@@ -115,35 +114,35 @@ Identificación del punto de inflexión donde las ventanas de 24h y 48h superan 
 
 El proyecto adopta un enfoque de despliegue progresivo de estándar industrial:
 
-* **Fase Exploratoria (`notebooks/01_aed_lluvias.ipynb`)**  
+* **Fase Exploratoria:** `notebooks/01_aed_lluvias.ipynb`  
 Prototipado de _notebook_ Jupyter, lectura inicial y visualización de datos para validación conceptual.
-* **Fase de Producción (`src/`)**  
+* **Fase de Producción:** `src/`)  
 Modularización del código del _notebook_ en funciones puras y scripts ejecutables listos para ser orquestados por tareas programadas.
 * **Fase de Reportabilidad y Dashboarding (GitHub Pages)**  
 Renderizado y publicación del reporte web interactivo accesible de forma pública mediante [GitHub Pages](https://pablozunigac.github.io/lluvias-chile-2026).
 
 ## Configuración y Reproducción
 
-#### Clonación del Repositorio
+### Clonación del Repositorio
 
 ``` Bash
 git clone https://github.com/pablozunigac/lluvias-chile-2026.git
 cd lluvias-chile-2026
 ```
 
-#### Entorno y Dependencias (`Python 3.11+`)
+### Entorno y Dependencias (Python 3.11+)
 
 ```Bash
 uv add polars plotly
 ```
 
-#### Ejecución del _Notebook_ Exploratorio
+### Ejecución del _Notebook_ Exploratorio
 
 ``` Bash
 jupyter notebook notebooks/01_aed_lluvias.ipynb
 ```
 
-#### Ejecución del Pipeline ETL a Parquet
+### Ejecución del Pipeline ETL a Parquet
 
 ``` Bash
 python3 src/csv_to_parquet.py

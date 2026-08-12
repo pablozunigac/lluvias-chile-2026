@@ -134,21 +134,26 @@ Antes de comenzar, asegúrate de contar con lo siguiente en tu sistema:
 
 #### Instalación Rápida de `uv`
 
-* **macOS / Linux:**
+**macOS/Linux (Bash/Zsh):**
   ```bash
-  curl -LsSf https://astral.sh/uv/install.sh | sh
+  curl -LsSf [https://astral.sh/uv/install.sh](https://astral.sh/uv/install.sh) | sh
+  ```
+
+**Windows (PowerShell):**
+  ```powershell
+  powershell -ExecutionPolicy ByPass -c "irm [https://astral.sh/uv/install.ps1](https://astral.sh/uv/install.ps1) | iex"
   ```
 
 ### Instalación y Entorno 
 
-#### Clonar el repositorio:
+**Paso 1: Clonar el repositorio**
 
-``` bash
-git clone https://github.com/pablozunigac/lluvias-chile-2026.git
+```bash
+git clone [https://github.com/pablozunigac/lluvias-chile-2026.git](https://github.com/pablozunigac/lluvias-chile-2026.git)
 cd lluvias-chile-2026
 ```
 
-#### Sincronizar el entorno de desarrollo:
+**Paso 2: Sincronizar el entorno de desarrollo**
 
 ```bash
 uv sync
@@ -156,15 +161,15 @@ uv sync
 
 ### Ejecución del Proyecto
 
-#### _Notebook_ Exploratorio:
+**Paso Opcional: *Notebook* Exploratorio**
 
-``` bash
+```bash
 uv run jupyter notebook notebooks/01_aed_lluvias.ipynb
 ```
 
-#### Pipeline ETL (CSV a Parquet):
+**Paso Opcional: Pipeline ETL (CSV a Parquet)**
 
-``` bash
+```bash
 uv run src/csv_to_parquet.py
 ```
 

@@ -15,6 +15,16 @@ Este portal presenta la infraestructura analítica desarrollada para la evaluaci
 
 ![Matriz de Concentración Temporal de Lluvia](assets/heatmap_01.png){fig-align="center" width="90%"}
 
+```{python}
+#| label: fig-heatmap
+#| fig-cap: "Matriz de Concentración Temporal de Lluvia"
+import plotly.express as px
+import polars as pl
+
+# Aquí ejecutas la lectura y despliegas el mapa de calor interactivo
+# px.imshow(...)
+```
+
 ---
 
 # Contexto Climatológico e Histórico: Julio 2026

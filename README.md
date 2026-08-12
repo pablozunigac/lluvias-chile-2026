@@ -85,7 +85,7 @@ El pipeline de datos está construido sobre **Polars** para garantizar máxima v
 
 ### Matriz de Saturación Multi-Ventana
 
-Para medir la persistencia temporal, el modelo calcula una matriz de medias móviles ($\text{MA}$) sobre las ventanas temporales $h \in  6 \cup \{12, 24,\ldots, 96\}$ horas:
+Para medir la persistencia temporal, el modelo calcula una matriz de medias móviles ($\text{MA}$) sobre las ventanas temporales $h \in \{6\} \cup \{12, 24,\ldots, 96\}$ horas:
 
 $$\text{MA}_h(t) = \frac{1}{k} \sum_{i=0}^{k-1} P(t - i)$$
 
@@ -147,10 +147,14 @@ jupyter notebook notebooks/01_aed_lluvias.ipynb
 ### Ejecución del Pipeline ETL a Parquet
 
 ``` Bash
-python3 src/csv_to_parquet.py
+uv run src/csv_to_parquet.py
 ```
 
-## Sección 9 – Perfil Profesional y Contacto
+
+
+##
+
+---
 
 **Perfil Profesional & Reportes:** [pablozunigac.github.io ↗](https://pablozunigac.github.io)  
 **Contacto Directo:** [pablo.zuniga.c@gmail.com](mailto:pablo.zuniga.c@gmail.com)

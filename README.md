@@ -4,7 +4,7 @@ Este repositorio implementa una infraestructura analítica avanzada para la eval
 
 ![Mapa de Calor: Acumulación por ventanas de tiempo variables](web/assets/heatmap_01.png)
 
-## Sección 1 – Contexto Climatológico e Histórico: El Temporal de Chile (Julio 2026)
+## Sección 1 – Contexto Climatológico Nacional: Chile, julio de 2026
 
 En julio de 2026, la zona centro-norte de Chile enfrentó un evento hidrometeorológico crítico originado por el ingreso de un **río atmosférico de Categoría 5** acoplado a un tren de sistemas frontales encadenados, fenómeno intensificado por la fase cálida de El Niño. El evento causó una emergencia de escala nacional entre las regiones de Coquimbo y Ñuble, impactando severamente asentamientos urbanos, cadenas productivas y conectividad vial.
 
@@ -19,13 +19,15 @@ Se registraron socavamientos mayores en la Ruta 5 y vías costeras, daños en la
 
 El frente descargó acumulados continuos de **200 a 350 mm en menos de 72 horas**, alcanzando hitos no registrados en décadas:
 
-* **La Serena:** 200.2 mm, el registro más alto para la zona desde 1954.
-* **Combarbalá:** 285.5 mm, marcando un récord histórico absoluto.
-* **Valparaíso:** 173.6 mm en 48 horas, acumulando un total mensual de 327.3 mm.
+* **Valdivia (Estación Pichoy):** 683.3 mm, estableciendo un nuevo récord histórico absoluto para un mes de julio.  
+* **Combarbalá (Región de Coquimbo):** 285.5 mm, alcanzando el primer lugar histórico para las mediciones de julio en la zona.  
+* **Osorno (Estación Cañal Bajo):** 330.2 mm, ubicándose en el tercer lugar histórico de la estación.  
+* **Rodelillo (Valparaíso):** 327.3 mm acumulados durante todo el mes, situándose en el quinto lugar histórico de su serie de mediciones.  
+* **La Serena (Estación La Florida):** 200.2 mm, el registro más alto para un mes de julio desde que existen datos en el aeródromo.
 
 ### Respuesta Analítica e Infraestructura de Datos
 
-Frente a la rápida saturación de suelos y el riesgo aluvial, este repositorio despliega un **modelo estocástico y matricial** diseñado para procesar telemetría de precipitación y anticipar la saturación hídrica mediante ventanas móviles (6h a 96h). El sistema convierte registros complejos en métricas operativas directas para respaldar evacuaciones preventivas y la protección de infraestructura crítica.
+Frente a la rápida saturación de suelos y el riesgo aluvial, este repositorio despliega un **modelo estocástico y matricial** diseñado para procesar telemetría de precipitación y anticipar la saturación hídrica mediante ventanas móviles (6h a 96h). El sistema convierte registros puntuales en métricas operativas directas para respaldar evacuaciones preventivas y la protección de infraestructura crítica así como un soporte para el análisis avanzado para las precipitaciones del pasado.
 
 ## Sección 2 – Arquitectura del Repositorio
 

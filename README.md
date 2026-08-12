@@ -8,8 +8,10 @@ En julio de 2026, la zona centro-norte de Chile enfrentó un evento hidrometeoro
 
 ### Impacto Territorial, Humanitario e Infraestructura
 
-* **Estado de Catástrofe e Impacto Humanitario:** La magnitud del desastre motivó la declaración de *Estado de Catástrofe* en la Región de Coquimbo y la Provincia de Huasco. El saldo nacional registró **15 personas fallecidas, 16 desaparecidas**, más de 16.000 damnificados y sobre 15.800 personas aisladas por colapsos viales.
-* **Infraestructura Critica y Cauces:** Se registraron socavamientos mayores en la Ruta 5 y vías costeras, daños en la infraestructura hospitalaria de Ovalle y desbordes de cauces principales como el río Elqui y el estero Tongoy en Coquimbo, además de evacuaciones masivas en la Región de Valparaíso por la crecida de los esteros Marga Marga y Quilpué.
+* **Estado de Catástrofe e Impacto Humanitario:**  
+La magnitud del desastre motivó la declaración de *Estado de Catástrofe* en la Región de Coquimbo y la Provincia de Huasco. El saldo nacional registró **15 personas fallecidas, 16 desaparecidas**, más de 16.000 damnificados y sobre 15.800 personas aisladas por colapsos viales.
+* **Infraestructura Critica y Cauces:**  
+Se registraron socavamientos mayores en la Ruta 5 y vías costeras, daños en la infraestructura hospitalaria de Ovalle y desbordes de cauces principales como el río Elqui y el estero Tongoy en Coquimbo, además de evacuaciones masivas en la Región de Valparaíso por la crecida de los esteros Marga Marga y Quilpué.
 
 ### Registros Históricos y Dinámica de Saturación
 
@@ -28,11 +30,11 @@ Frente a la rápida saturación de suelos y el riesgo aluvial, este repositorio 
 
 El proyecto mantiene un desacoplamiento estricto entre los datos primarios, la exploración interactiva, el código fuente modular y los artefactos exportados.
 
-``` Bash
+```text
 lluvias-chile-2026/
 ├── _site/                      # Artefacto estático compilado listo para despliegue en GitHub Pages
 ├── .github/                    # Pipelines de CI/CD para automatización y GitHub Pages
-├── .vscode/                    # 
+├── .vscode/                    # Configuración del entorno de desarrollo local, linters y ajustes de editor
 ├── data/                       # Gestión de datasets
 │   ├── processed/              # Matrices serializadas en Parquet con tipos optimizados
 │   └── raw/                    # Archivos CSV crudos (Lluvia_2026_v1.csv, Lluvia_2026_v2.csv)
@@ -51,9 +53,9 @@ lluvias-chile-2026/
 
 Los datos analizados provienen de registros de precipitación recopilados mediante _scraping_ estructurado e integración del modelo **ECMWF (European Centre for Medium-Range Weather Forecasts)** a través de la plataforma Windy.com.
 
-* **Frecuencia de Muestreo** (Intervalos de 3 horas.)
-* **Estructura Cruda (`data/raw/Lluvia_2026_v2.csv`)**
-* **Variables del _scraping_** (`fecha`, `hora`, `lluvia_mm`)
+* **Frecuencia de Muestreo:** Intervalos de 3 horas.
+* **Estructura Cruda:** `data/raw/Lluvia_2026_v2.csv`
+* **Variables del _scraping_:** `fecha`, `hora`, `lluvia_mm`
 
 ## Pipeline ETL (Extract, Transform, Load)
 
@@ -85,26 +87,23 @@ Donde $\mu$ es el parámetro de localización (centro de la distribución de pic
 
 ## Evaluación y Validación del Modelo
 
-* **Monotonicidad de la Suma Acumulada:** Se verifica formalmente que SUM(P(t)) >= SUM(P(t-1)), validando la ausencia de valores negativos o discontinuidades en los sensores.
-
-* **Monotonicidad de la Suma Acumulada:** Se verifica formalmente que $\sum P(t) \ge \sum P(t-1)$, validando la ausencia de valores negativos o discontinuidades en la telemetría de los sensores.
-
-* **Monotonicidad de la Suma Acumulada:** Se verifica formalmente la condición de no negatividad y continuidad en las lecturas de los sensores:
+* **Monotonicidad de la Suma Acumulada:** Se verifica formalmente la condición de no negatividad y continuidad en las lecturas de los sensores, lo que garantiza la coherencia temporal y la ausencia de valores anómalos o discontinuidades:
 
 $$\sum_{i=0}^{t} P(i) \ge \sum_{i=0}^{t-1} P(i) \quad \forall t$$
 
-Lo que garantiza la coherencia temporal y la ausencia de valores anómalos o discontinuidades.
-
-* **Efecto de Borde por Inicialización:** Documentación explícita de los valores `null` generados por el parámetro `min_samples = h // 3`. Representa la ventana de calentamiento necesaria para que la métrica de saturación hídrica sea estadísticamente válida.
+* **Efecto de Borde por Inicialización:** Documentación explícita de los valores `null` generados por el parámetro `min_samples = h/3`. Representa la ventana de calentamiento necesaria para que la métrica de saturación hídrica sea estadísticamente válida.
 * **Sensibilidad de Saturación Operativa:** Identificación del punto de inflexión donde las ventanas de 24h y 48h superan los umbrales críticos de absorción del suelo, señalando el inicio del riesgo aluvial.
 
 ## Estrategia de Despliegue
 
 El proyecto adopta un enfoque de despliegue progresivo de estándar industrial:
 
-* **Fase Exploratoria (`notebooks/01_aed_lluvias.ipynb`):** Prototipado de _notebook_ Jupyter, lectura inicial y visualización de datos para validación conceptual.
-* **Fase de Producción (`src/`):** Modularización del código del _notebook_ en funciones puras y scripts ejecutables (ej.: `src/csv_to_parquet.py`) listos para ser orquestados por tareas programadas.
-* **Fase de Reportabilidad y Dashboarding (GitHub Pages):** Renderizado y publicación del reporte web interactivo accesible de forma pública mediante [GitHub Pages](https://pablozunigac.github.io/lluvias-chile-2026).
+* **Fase Exploratoria (`notebooks/01_aed_lluvias.ipynb`):**  
+Prototipado de _notebook_ Jupyter, lectura inicial y visualización de datos para validación conceptual.
+* **Fase de Producción (`src/`):**  
+Modularización del código del _notebook_ en funciones puras y scripts ejecutables (ej.: `src/csv_to_parquet.py`) listos para ser orquestados por tareas programadas.
+* **Fase de Reportabilidad y Dashboarding (GitHub Pages):**  
+Renderizado y publicación del reporte web interactivo accesible de forma pública mediante [GitHub Pages](https://pablozunigac.github.io/lluvias-chile-2026).
 
 ## Configuración y Reproducción
 
@@ -115,27 +114,19 @@ git clone https://github.com/pablozunigac/lluvias-chile-2026.git
 cd lluvias-chile-2026
 ```
 
-### Entorno de Desarrollo y Dependencias
+### Entorno y Dependencias (`Python 3.11+`)
 
-**Intérprete:** Python 3.11+  
-* `polars` – Procesamiento y cálculo de medias móviles vectorizadas a alta velocidad.  
-* `plotly` – Motor de renderizado interactivo para mapas térmicos.  
-
-Se recomienda utilizar Python 3.11+. Para instalar las dependencias exactas del proyecto:
-
-``` Bash
-python3 -m pip install polars plotly pandas nbformat
+```Bash
+python3 -m pip install polars plotly
 ```
 
-### Ejecución del Notebook Exploratorio
-Para abrir y correr el análisis interactivo completo:
+### Ejecución del _Notebook_ Exploratorio
 
 ``` Bash
 jupyter notebook notebooks/01_aed_lluvias.ipynb
 ```
 
 ### Ejecución del Pipeline ETL a Parquet
-Para ejecutar el procesamiento en lote y generar el archivo persistido:
 
 ``` Bash
 python3 src/csv_to_parquet.py

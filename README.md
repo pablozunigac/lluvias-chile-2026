@@ -4,7 +4,7 @@ Este repositorio implementa una infraestructura analítica avanzada para la eval
 
 ![Mapa de Calor: Acumulación por ventanas de tiempo variables](web/assets/heatmap_01.png)
 
-## Contexto Climatológico e Histórico: El Temporal de Chile (Julio 2026)
+## Sección 1 – Contexto Climatológico e Histórico: El Temporal de Chile (Julio 2026)
 
 En julio de 2026, la zona centro-norte de Chile enfrentó un evento hidrometeorológico crítico originado por el ingreso de un **río atmosférico de Categoría 5** acoplado a un tren de sistemas frontales encadenados, fenómeno intensificado por la fase cálida de El Niño. El evento causó una emergencia de escala nacional entre las regiones de Coquimbo y Ñuble, impactando severamente asentamientos urbanos, cadenas productivas y conectividad vial.
 
@@ -27,7 +27,7 @@ El frente descargó acumulados continuos de **200 a 350 mm en menos de 72 horas*
 
 Frente a la rápida saturación de suelos y el riesgo aluvial, este repositorio despliega un **modelo estocástico y matricial** diseñado para procesar telemetría de precipitación y anticipar la saturación hídrica mediante ventanas móviles (6h a 96h). El sistema convierte registros complejos en métricas operativas directas para respaldar evacuaciones preventivas y la protección de infraestructura crítica.
 
-## Arquitectura del Repositorio
+## Sección 2 – Arquitectura del Repositorio
 
 El proyecto mantiene un desacoplamiento estricto entre los datos primarios, la exploración interactiva, el código fuente modular y los artefactos exportados.
 
@@ -61,7 +61,7 @@ lluvias-chile-2026/
 └── README.md                    # Documentación técnica principal del repositorio
 ```
 
-## Origen y Estructura de los Datos
+## Sección 3 – Origen y Estructura de los Datos
 
 Los datos analizados provienen de registros de precipitación recopilados mediante _scraping_ estructurado e integración del modelo **ECMWF (_European Centre for Medium-Range Weather Forecasts_)** a través de la plataforma Windy.com.
 
@@ -69,7 +69,7 @@ Los datos analizados provienen de registros de precipitación recopilados median
 * **Estructura Cruda:** `data/raw/Lluvia_2026_v2.csv`
 * **Variables del _scraping_:** `fecha`, `hora`, `lluvia_mm`
 
-## Pipeline ETL (Extract, Transform, Load)
+## Sección 4 – Pipeline ETL (Extract, Transform, Load)
 
 El pipeline de datos está construido sobre **Polars** para garantizar máxima velocidad de procesamiento en memoria mediante ejecución vectorizada:
 
@@ -79,7 +79,7 @@ El pipeline de datos está construido sobre **Polars** para garantizar máxima v
    * Ordenamiento cronológico garantizado (`sort("datetime")`).  
 * **_Load_:** Exportación en formato columnar **Parquet** en `data/processed/lluvia_2026_matrix.parquet`, preservando metadatos de tipo y nulos de inicialización.
 
-## Modelo Analítico y Caracterización Estadística
+## Sección 5 – Modelo Analítico y Caracterización Estadística
 
 ### Matriz de Saturación Multi-Ventana
 
@@ -97,7 +97,7 @@ $$F(x; \mu, \beta) = \exp\left(-\exp\left(-\frac{x - \mu}{\beta}\right)\right)$$
 
 Donde $\mu$ es el parámetro de localización (centro de la distribución de picos) y $\beta$ es el parámetro de escala ($\beta > 0$).
 
-## Evaluación y Validación del Modelo
+## Sección 6 – Evaluación y Validación del Modelo
 
 * **Monotonicidad de la Suma Acumulada:**  
 Se verifica formalmente la condición de no negatividad y continuidad en las lecturas de los sensores, lo que garantiza la coherencia temporal y la ausencia de valores anómalos o discontinuidades:
@@ -110,7 +110,7 @@ Documentación explícita de los valores `null` generados por el parámetro `min
 * **Sensibilidad de Saturación Operativa**  
 Identificación del punto de inflexión donde las ventanas de 24h y 48h superan los umbrales críticos de absorción del suelo, señalando el inicio del riesgo aluvial.
 
-## Estrategia de Despliegue
+## Sección 7 – Estrategia de Despliegue
 
 El proyecto adopta un enfoque de despliegue progresivo de estándar industrial:
 
@@ -121,7 +121,7 @@ Modularización del código del _notebook_ en funciones puras y scripts ejecutab
 * **Fase de Reportabilidad y Dashboarding (GitHub Pages)**  
 Renderizado y publicación del reporte web interactivo accesible de forma pública mediante [GitHub Pages](https://pablozunigac.github.io/lluvias-chile-2026).
 
-## Configuración y Reproducción
+## Sección 8 – Configuración y Reproducción
 
 ### Clonación del Repositorio
 
@@ -148,7 +148,7 @@ jupyter notebook notebooks/01_aed_lluvias.ipynb
 python3 src/csv_to_parquet.py
 ```
 
-## Perfil Profesional y Contacto
+## Sección 9 – Perfil Profesional y Contacto
 
 **Perfil Profesional & Reportes:** [pablozunigac.github.io ↗](https://pablozunigac.github.io)  
 **Contacto Directo:** [pablo.zuniga.c@gmail.com](mailto:pablo.zuniga.c@gmail.com)

@@ -30,9 +30,9 @@ El proyecto mantiene un desacoplamiento estricto entre los datos primarios, la e
 
 ``` Bash
 lluvias-chile-2026/
-├── _site                       # Artefacto estático compilado listo para despliegue en GitHub Pages
+├── _site/                      # Artefacto estático compilado listo para despliegue en GitHub Pages
 ├── .github/                    # Pipelines de CI/CD para automatización y GitHub Pages
-├── .vscode/                    # Gestión de datasets
+├── .vscode/                    # 
 ├── data/                       # Gestión de datasets
 │   ├── processed/              # Matrices serializadas en Parquet con tipos optimizados
 │   └── raw/                    # Archivos CSV crudos (Lluvia_2026_v1.csv, Lluvia_2026_v2.csv)
@@ -42,7 +42,7 @@ lluvias-chile-2026/
 ├── R/                          # Scripts legados y procesamiento estadístico complementario
 ├── src/                        # Código fuente modular de producción en Python
 │   ├── csv_to_parquet.py
-├── web                         # Motor de documentación interactiva Quarto (fuentes .qmd y _quarto.yml)
+├── web/                        # Motor de documentación interactiva Quarto (fuentes .qmd y _quarto.yml)
 ├── .gitignore                  # Exclusión de archivos pesados y temporales
 └── README.md                   # Documentación técnica del proyecto
 ```
@@ -51,23 +51,23 @@ lluvias-chile-2026/
 
 Los datos analizados provienen de registros de precipitación recopilados mediante _scraping_ estructurado e integración del modelo **ECMWF (European Centre for Medium-Range Weather Forecasts)** a través de la plataforma Windy.com.
 
-* **Frecuencia de Muestreo:** Registros discretos agregados en intervalos de 3 horas.
-* **Estructura Cruda (`data/raw/Lluvia_2026_v2.csv`):**
-* **Variables del _scraping_:** `fecha`, `hora`, `lluvia_mm`
+* **Frecuencia de Muestreo** (Intervalos de 3 horas.)
+* **Estructura Cruda (`data/raw/Lluvia_2026_v2.csv`)**
+* **Variables del _scraping_** (`fecha`, `hora`, `lluvia_mm`)
 
 ## Pipeline ETL (Extract, Transform, Load)
 
 El pipeline de datos está construido sobre **Polars** para garantizar máxima velocidad de procesamiento en memoria mediante ejecución vectorizada:
 
-1 **_Extract_:** Lectura resuelta mediante `pathlib` dinámico para garantizar portabilidad entre SO, con esquema tipado explícito (`hora` -> `Int32`, `fecha` -> `Float64`, `lluvia_mm` -> `Float64`).
-2 **_Transform_:**
+* **_Extract_:** Lectura resuelta mediante `pathlib` dinámico para garantizar portabilidad entre SO, con esquema tipado explícito (`hora` -> `Int32`, `fecha` -> `Float64`, `lluvia_mm` -> `Float64`).  
+* **_Transform_:**
    * Reconstrucción del sello temporal absoluto (`datetime`): Conversión de la fecha flotante de serial Excel a `Date` y posterior combinación vectorial con el entero de hora.
-   * Ordenamiento cronológico garantizado (`sort("datetime")`).
-3 **_Load_:** Exportación en formato columnar **Parquet** en `data/processed/lluvia_2026_matrix.parquet`, preservando metadatos de tipo y nulos de inicialización.
+   * Ordenamiento cronológico garantizado (`sort("datetime")`).  
+* **_Load_:** Exportación en formato columnar **Parquet** en `data/processed/lluvia_2026_matrix.parquet`, preservando metadatos de tipo y nulos de inicialización.
 
 ## Modelo Analítico y Caracterización Estadística
 
-### 1. Matriz de Saturación Multi-Ventana
+### Matriz de Saturación Multi-Ventana
 
 Para medir la persistencia temporal, el modelo calcula una matriz de medias móviles ($\text{MA}$) sobre las ventanas temporales $h \in \{6, 12, 24, 36, 48, 60, 72, 84, 96\}$ horas:
 
@@ -75,7 +75,7 @@ $$\text{MA}_h(t) = \frac{1}{k} \sum_{i=0}^{k-1} P(t - i)$$
 
 Donde $P(t)$ representa la precipitación registrada en el tiempo $t$ y $k = \frac{h}{3}$ corresponde al número de periodos de 3 horas contenidos dentro de la ventana de acumulación $h$.
 
-### 2. Ajuste de Distribución de Valores Extremos (EVT)
+### Ajuste de Distribución de Valores Extremos (EVT)
 
 Los picos de intensidad máxima se modelan mediante una **Distribución Gumbel** para estimar las probabilidades de excedencia y períodos de retorno ($T$) ante eventos hidrometeorológicos de $h$-horas:
 
@@ -85,9 +85,18 @@ Donde $\mu$ es el parámetro de localización (centro de la distribución de pic
 
 ## Evaluación y Validación del Modelo
 
-1. **Monotonicidad de la Suma Acumulada:** Se verifica formalmente que SUM(P(t)) >= SUM(P(t-1)), validando la ausencia de valores negativos o discontinuidades en los sensores.
-2. **Efecto de Borde por Inicialización:** Documentación explícita de los valores `null` generados por el parámetro `min_samples = h // 3`. Representa la ventana de calentamiento necesaria para que la métrica de saturación hídrica sea estadísticamente válida.
-3. **Sensibilidad de Saturación Operativa:** Identificación del punto de inflexión donde las ventanas de 24h y 48h superan los umbrales críticos de absorción del suelo, señalando el inicio del riesgo aluvial.
+* **Monotonicidad de la Suma Acumulada:** Se verifica formalmente que SUM(P(t)) >= SUM(P(t-1)), validando la ausencia de valores negativos o discontinuidades en los sensores.
+
+* **Monotonicidad de la Suma Acumulada:** Se verifica formalmente que $\sum P(t) \ge \sum P(t-1)$, validando la ausencia de valores negativos o discontinuidades en la telemetría de los sensores.
+
+* **Monotonicidad de la Suma Acumulada:** Se verifica formalmente la condición de no negatividad y continuidad en las lecturas de los sensores:
+
+$$\sum_{i=0}^{t} P(i) \ge \sum_{i=0}^{t-1} P(i) \quad \forall t$$
+
+Lo que garantiza la coherencia temporal y la ausencia de valores anómalos o discontinuidades.
+
+* **Efecto de Borde por Inicialización:** Documentación explícita de los valores `null` generados por el parámetro `min_samples = h // 3`. Representa la ventana de calentamiento necesaria para que la métrica de saturación hídrica sea estadísticamente válida.
+* **Sensibilidad de Saturación Operativa:** Identificación del punto de inflexión donde las ventanas de 24h y 48h superan los umbrales críticos de absorción del suelo, señalando el inicio del riesgo aluvial.
 
 ## Estrategia de Despliegue
 
@@ -106,12 +115,11 @@ git clone https://github.com/pablozunigac/lluvias-chile-2026.git
 cd lluvias-chile-2026
 ```
 
-### 2 Entorno de Desarrollo y Dependencias
+### Entorno de Desarrollo y Dependencias
 
-Intérprete: Python 3.11+  
-
-`polars` – Procesamiento y cálculo de medias móviles vectorizadas a alta velocidad.  
-`plotly` – Motor de renderizado interactivo para mapas térmicos.  
+**Intérprete:** Python 3.11+  
+* `polars` – Procesamiento y cálculo de medias móviles vectorizadas a alta velocidad.  
+* `plotly` – Motor de renderizado interactivo para mapas térmicos.  
 
 Se recomienda utilizar Python 3.11+. Para instalar las dependencias exactas del proyecto:
 
@@ -119,14 +127,14 @@ Se recomienda utilizar Python 3.11+. Para instalar las dependencias exactas del 
 python3 -m pip install polars plotly pandas nbformat
 ```
 
-### 3 Ejecución del Notebook Exploratorio
+### Ejecución del Notebook Exploratorio
 Para abrir y correr el análisis interactivo completo:
 
 ``` Bash
 jupyter notebook notebooks/01_aed_lluvias.ipynb
 ```
 
-### 4 Ejecución del Pipeline ETL a Parquet
+### Ejecución del Pipeline ETL a Parquet
 Para ejecutar el procesamiento en lote y generar el archivo persistido:
 
 ``` Bash

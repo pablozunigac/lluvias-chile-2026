@@ -85,7 +85,7 @@ El pipeline de datos está construido sobre **Polars** para garantizar máxima v
 
 ### Matriz de Saturación Multi-Ventana
 
-Para medir la persistencia temporal, el modelo calcula una matriz de medias móviles ($\text{MA}$) sobre las ventanas temporales $h \in \{6, 12, 24, \dots, 96\}$ horas:
+Para medir la persistencia temporal, el modelo calcula una matriz de medias móviles ($\text{MA}$) sobre las ventanas temporales $h \in \\{6, 12, 24, \dots, 96\\}$ horas:
 
 $$\text{MA}_h(t) = \frac{1}{k} \sum_{i=0}^{k-1} P(t - i)$$
 

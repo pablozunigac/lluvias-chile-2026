@@ -13,7 +13,7 @@ format:
 
 Este portal presenta la infraestructura analítica desarrollada para la evaluación de eventos de precipitación extrema y saturación hídrica en la zona centro-norte de Chile. El sistema traduce telemetría meteorológica compleja en matrices de acumulación multi-ventana y métricas operativas directas para respaldar la toma de decisiones en tiempo real.
 
-![Matriz de Concentración Temporal de Lluvia](../output/assets/heatmap_01.png){fig-align="center" width="90%"}
+![Matriz de Concentración Temporal de Lluvia](assets/heatmap_01.png){fig-align="center" width="90%"}
 
 ---
 

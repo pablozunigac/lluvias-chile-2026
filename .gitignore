@@ -20,7 +20,7 @@ Thumbs.db
 .Rapp.history
 
 # ==========================================
-# 3. Entornos de Desarrollo (Python)
+# 3. Entornos de Desarrollo y Compilaciones (Python)
 # ==========================================
 __pycache__/
 *.py[cod]
@@ -29,6 +29,12 @@ __pycache__/
 env/
 venv/
 .ipynb_checkpoints/
+
+# Artefactos de empaquetado y build
+*.egg-info/
+.eggs/
+build/
+dist/
 
 # ==========================================
 # 4. Caché y Compilaciones de Quarto
@@ -46,5 +52,8 @@ web/.quarto/
 *.xlsx
 *.csv.tmp
 *.tmp
+
+# Exclusión general de carpetas de datos reteniendo su estructura
 data/raw/*
-!data/raw/.gitkeep
+data/processed/*
+!/**/.gitkeep

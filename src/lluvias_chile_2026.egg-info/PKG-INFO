@@ -1,3 +1,27 @@
+Metadata-Version: 2.4
+Name: lluvias-chile-2026
+Version: 0.1.0
+Summary: Infraestructura analítica para la evaluación de eventos de precipitación extrema y saturación hídrica en Chile.
+Author-email: "Pablo Zúñiga C." <pablo.zuniga.c@gmail.com>
+License: MIT
+Project-URL: Homepage, https://pablozunigac.github.io/lluvias-chile-2026/
+Project-URL: Repository, https://github.com/pablozunigac/lluvias-chile-2026
+Keywords: data-science,analytics-engineering,polars,quarto,evt,gumbel-distribution
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+Requires-Dist: polars>=0.20.0
+Requires-Dist: pandas>=2.1.0
+Requires-Dist: pyarrow>=14.0.0
+Requires-Dist: plotly>=5.18.0
+Requires-Dist: scipy>=1.11.0
+Requires-Dist: numpy>=1.26.0
+Requires-Dist: jupyter>=1.0.0
+Requires-Dist: nbformat>=5.9.0
+Provides-Extra: dev
+Requires-Dist: pytest>=7.4.0; extra == "dev"
+Requires-Dist: ruff>=0.1.0; extra == "dev"
+Requires-Dist: jupyter>=1.0.0; extra == "dev"
+
 # Modelo Estadístico para las Lluvias de 2026 en Chile
 
 Este repositorio implementa una infraestructura analítica avanzada para la evaluación de eventos de precipitación extrema y saturación hídrica. Su propósito central es modelar la persistencia temporal de los frentes de mal tiempo mediante matrices de acumulación multi-ventana y mapas de calor interactivos, permitiendo anticipar el riesgo sistémico en contextos urbanos y rurales. Diseñado para mitigar escenarios críticos como desbordes fluviales, anegamientos severos e interrupción de infraestructura crítica, el sistema traduce pronósticos meteorológicos complejos en métricas accionables para la gestión de crisis y la toma de decisiones operativas en tiempo real.
@@ -38,6 +62,7 @@ lluvias-chile-2026/
 ├── .github/
 │   └── workflows/
 │       └── deploy.yml           # Pipeline CI/CD para compilación y despliegue a GitHub Pages
+├── .vscode/                     # Configuración de workspace local, linters y ajustes de editor
 ├── data/                        # Almacenamiento y gestión de datasets
 │   ├── processed/               # Matrices serializadas en .parquet con tipos optimizados
 │   └── raw/                     # Telemetría meteorológica cruda en .csv
@@ -124,49 +149,32 @@ Renderizado y publicación del reporte web interactivo accesible de forma públi
 
 ## Sección 8 – Configuración y Reproducción
 
-### Requisitos Previos
+### Clonación del Repositorio
 
-Antes de comenzar, asegúrate de contar con lo siguiente en tu sistema:
-
-* **Git:** Para la clonación del repositorio.
-* **uv:** Gestor de paquetes y entornos virtuales de Python (versión >= 0.12).
-* **Python 3.11+** *(opcional)*: No es estrictamente necesario tenerlo instalado, `uv` lo descargará e instalará automáticamente si tu sistema no lo detecta.
-
-#### Instalación Rápida de `uv`
-
-* **macOS / Linux:**
-  ```bash
-  curl -LsSf https://astral.sh/uv/install.sh | sh
-  ```
-
-### Instalación y Entorno 
-
-#### Clonar el repositorio:
-
-``` bash
+``` Bash
 git clone https://github.com/pablozunigac/lluvias-chile-2026.git
 cd lluvias-chile-2026
 ```
 
-#### Sincronizar el entorno de desarrollo:
+### Entorno y Dependencias (Python 3.11+)
 
-```bash
-uv sync
+```Bash
+uv add polars plotly
 ```
 
-### Ejecución del Proyecto
+### Ejecución del _Notebook_ Exploratorio
 
-#### _Notebook_ Exploratorio:
-
-``` bash
-uv run jupyter notebook notebooks/01_aed_lluvias.ipynb
+``` Bash
+jupyter notebook notebooks/01_aed_lluvias.ipynb
 ```
 
-#### Pipeline ETL (CSV a Parquet):
+### Ejecución del Pipeline ETL a Parquet
 
-``` bash
+``` Bash
 uv run src/csv_to_parquet.py
 ```
+
+
 
 ##
 

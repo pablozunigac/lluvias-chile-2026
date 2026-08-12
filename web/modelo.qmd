@@ -1,0 +1,24 @@
+---
+title: "Modelo Analítico y Teoría de Valores Extremos (EVT)"
+subtitle: "Matriz de Saturación Multi-Ventana y Ajuste de Distribución Gumbel"
+format:
+  html:
+    toc: true
+    code-fold: true
+---
+
+# Matriz de Saturación Multi-Ventana
+
+Para evaluar el riesgo de escorrentía y saturación de suelos, el modelo calcula medias móviles ($\text{MA}$) sobre las ventanas temporales $h \in \{6, 12, 24, 36, 48, 60, 72, 84, 96\}$ horas:
+
+$$\text{MA}_h(t) = \frac{1}{k} \sum_{i=0}^{k-1} P(t - i)$$
+
+Donde $P(t)$ representa la precipitación registrada en el tiempo $t$ y $k = \frac{h}{3}$ corresponde a los periodos de 3 horas contenidos dentro de la ventana de acumulación $h$.
+
+# Ajuste de Distribución Gumbel (EVT)
+
+Los picos de intensidad máxima se modelan mediante una **Distribución Gumbel** para estimar las probabilidades de excedencia y períodos de retorno ($T$):
+
+$$F(x; \mu, \beta) = \exp\left(-\exp\left(-\frac{x - \mu}{\beta}\right)\right)$$
+
+Donde $\mu$ es el parámetro de localización y $\beta$ es el parámetro de escala ($\beta > 0$).

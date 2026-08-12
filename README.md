@@ -28,6 +28,7 @@ Frente a la rápida saturación de suelos y el riesgo aluvial, este repositorio 
 
 El proyecto mantiene un desacoplamiento estricto entre los datos primarios, la exploración interactiva, el código fuente modular y los artefactos exportados.
 
+``` Bash
 lluvias-chile-2026/
 ├── \_site                      # 
 ├── .github/                    # _Pipelines_ de CI/CD para automatización y GitHub Pages
@@ -44,6 +45,7 @@ lluvias-chile-2026/
 ├── web                         # 
 ├── .gitignore                  # Exclusión de archivos pesados y temporales
 └── README.md                   # Documentación técnica del proyecto
+```
 
 ## Origen y Estructura de los Datos
 

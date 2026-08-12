@@ -2,7 +2,7 @@
 
 Este repositorio implementa una infraestructura analítica avanzada para la evaluación de eventos de precipitación extrema y saturación hídrica. Su propósito central es modelar la persistencia temporal de los frentes de mal tiempo mediante matrices de acumulación multi-ventana y mapas de calor interactivos, permitiendo anticipar el riesgo sistémico en contextos urbanos y rurales. Diseñado para mitigar escenarios críticos como desbordes fluviales, anegamientos severos e interrupción de infraestructura crítica, el sistema traduce pronósticos meteorológicos complejos en métricas accionables para la gestión de crisis y la toma de decisiones operativas en tiempo real.
 
-## 🏛️ Contexto Climatológico e Histórico: El Temporal de Chile (Julio 2026)
+## Contexto Climatológico e Histórico: El Temporal de Chile (Julio 2026)
 
 En julio de 2026, la zona centro-norte de Chile enfrentó un evento hidrometeorológico crítico originado por el ingreso de un **río atmosférico de Categoría 5** acoplado a un tren de sistemas frontales encadenados, fenómeno intensificado por la fase cálida de El Niño. El evento causó una emergencia de escala nacional entre las regiones de Coquimbo y Ñuble, impactando severamente asentamientos urbanos, cadenas productivas y conectividad vial.
 
@@ -30,8 +30,8 @@ El proyecto mantiene un desacoplamiento estricto entre los datos primarios, la e
 
 ``` Bash
 lluvias-chile-2026/
-├── \_site                      # 
-├── .github/                    # _Pipelines_ de CI/CD para automatización y GitHub Pages
+├── _site                       # Artefacto estático compilado listo para despliegue en GitHub Pages
+├── .github/                    # Pipelines de CI/CD para automatización y GitHub Pages
 ├── .vscode/                    # Gestión de datasets
 ├── data/                       # Gestión de datasets
 │   ├── processed/              # Matrices serializadas en Parquet con tipos optimizados
@@ -42,7 +42,7 @@ lluvias-chile-2026/
 ├── R/                          # Scripts legados y procesamiento estadístico complementario
 ├── src/                        # Código fuente modular de producción en Python
 │   ├── csv_to_parquet.py
-├── web                         # 
+├── web                         # Motor de documentación interactiva Quarto (fuentes .qmd y _quarto.yml)
 ├── .gitignore                  # Exclusión de archivos pesados y temporales
 └── README.md                   # Documentación técnica del proyecto
 ```
@@ -68,19 +68,20 @@ El pipeline de datos está construido sobre **Polars** para garantizar máxima v
 ## Modelo Analítico y Caracterización Estadística
 
 ### 1. Matriz de Saturación Multi-Ventana
-Para medir la persistencia del temporal, se calcula una matriz de medias móviles (MA) para ventanas de h en {6, 12, 24, 36, 48, 60, 72, 84, 96} horas:
 
-MA_h(t) = (1 / k) * SUM(P(t - i))
+Para medir la persistencia temporal, el modelo calcula una matriz de medias móviles ($\text{MA}$) sobre las ventanas temporales $h \in \{6, 12, 24, 36, 48, 60, 72, 84, 96\}$ horas:
 
-Donde P(t) es la precipitación en el tiempo t y k = h / 3 representa el número de periodos de 3 horas contenidos en la ventana h.
+$$\text{MA}_h(t) = \frac{1}{k} \sum_{i=0}^{k-1} P(t - i)$$
 
-### 2. Análisis Descriptivo y Métricas Climatológicas
-* **Medidas de Tendencia Central y Dispersión:** Evaluación de la media móvil, acumulado total y varianza sobre la serie temporal para identificar el régimen de precipitación.
-* **Ajuste a Distribuciones de Valores Extremos:** Modelación de los picos de intensidad mediante la **Distribución Gumbel** para la estimación de periodos de retorno (T) de eventos de h-horas:
-  
-F(x) = exp(-exp(-(x - mu) / beta))
+Donde $P(t)$ representa la precipitación registrada en el tiempo $t$ y $k = \frac{h}{3}$ corresponde al número de periodos de 3 horas contenidos dentro de la ventana de acumulación $h$.
 
-* **Dataviz Matrix (Heatmap Temporal):** Representación bidimensional mediante `Plotly Express` donde el eje X representa la línea del tiempo, el eje Y las ventanas de acumulación (h) y el canal de color (Reds) la intensidad promedio en mm/h.
+### 2. Ajuste de Distribución de Valores Extremos (EVT)
+
+Los picos de intensidad máxima se modelan mediante una **Distribución Gumbel** para estimar las probabilidades de excedencia y períodos de retorno ($T$) ante eventos hidrometeorológicos de $h$-horas:
+
+$$F(x; \mu, \beta) = \exp\left(-\exp\left(-\frac{x - \mu}{\beta}\right)\right)$$
+
+Donde $\mu$ es el parámetro de localización (centro de la distribución de picos) y $\beta$ es el parámetro de escala ($\beta > 0$).
 
 ## Evaluación y Validación del Modelo
 
@@ -98,18 +99,15 @@ El proyecto adopta un enfoque de despliegue progresivo de estándar industrial:
 
 ## Configuración y Reproducción
 
-### 1 Clonar el Repositorio
+### Clonación del Repositorio
 
 ``` Bash
 git clone https://github.com/pablozunigac/lluvias-chile-2026.git
 cd lluvias-chile-2026
 ```
 
-### 2 Entorno y Dependencias
+### 2 Entorno de Desarrollo y Dependencias
 
-## Entorno de Desarrollo y Dependencias
-
-**Entorno Python**
 Intérprete: Python 3.11+  
 
 `polars` – Procesamiento y cálculo de medias móviles vectorizadas a alta velocidad.  

@@ -134,7 +134,7 @@ cd lluvias-chile-2026
 #### Entorno y Dependencias (`Python 3.11+`)
 
 ```Bash
-python3 -m pip install polars plotly
+uv add polars plotly
 ```
 
 #### Ejecución del _Notebook_ Exploratorio

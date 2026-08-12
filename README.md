@@ -8,19 +8,19 @@ En julio de 2026, la zona centro-norte de Chile enfrentó un evento hidrometeoro
 
 ### Impacto Territorial, Humanitario e Infraestructura
 
-* **Estado de Catástrofe e Impacto Humanitario:**  
+* **Estado de Catástrofe e Impacto Humanitario**  
 La magnitud del desastre motivó la declaración de *Estado de Catástrofe* en la Región de Coquimbo y la Provincia de Huasco. El saldo nacional registró **15 personas fallecidas, 16 desaparecidas**, más de 16.000 damnificados y sobre 15.800 personas aisladas por colapsos viales.
-* **Infraestructura Critica y Cauces:**  
+* **Infraestructura Critica y Cauces**  
 Se registraron socavamientos mayores en la Ruta 5 y vías costeras, daños en la infraestructura hospitalaria de Ovalle y desbordes de cauces principales como el río Elqui y el estero Tongoy en Coquimbo, además de evacuaciones masivas en la Región de Valparaíso por la crecida de los esteros Marga Marga y Quilpué.
 
 ### Registros Históricos y Dinámica de Saturación
 
 El frente descargó acumulados continuos de **200 a 350 mm en menos de 72 horas**, alcanzando hitos no registrados en décadas:
 
-* **La Serena (Estación La Florida):** 200,2 mm, el registro más alto para la zona desde 1954.
-* **Combarbalá:** 285,5 mm, marcando un récord histórico absoluto.
-* **Valparaíso:** 173,6 mm en 48 horas, acumulando un total mensual de 327,3 mm.
-* **Chillán:** 312,2 mm acumulados durante el evento.
+* **La Serena (Estación La Florida):** 200.2 mm, el registro más alto para la zona desde 1954.
+* **Combarbalá:** 285.5 mm, marcando un récord histórico absoluto.
+* **Valparaíso:** 173.6 mm en 48 horas, acumulando un total mensual de 327.3 mm.
+* **Chillán:** 312.2 mm acumulados durante el evento.
 
 ### Respuesta Analítica e Infraestructura de Datos
 
@@ -91,18 +91,21 @@ Donde $\mu$ es el parámetro de localización (centro de la distribución de pic
 
 $$\sum_{i=0}^{t} P(i) \ge \sum_{i=0}^{t-1} P(i) \quad \forall t$$
 
-* **Efecto de Borde por Inicialización:** Documentación explícita de los valores `null` generados por el parámetro `min_samples = h/3`. Representa la ventana de calentamiento necesaria para que la métrica de saturación hídrica sea estadísticamente válida.
-* **Sensibilidad de Saturación Operativa:** Identificación del punto de inflexión donde las ventanas de 24h y 48h superan los umbrales críticos de absorción del suelo, señalando el inicio del riesgo aluvial.
+* **Efecto de Borde por Inicialización**  
+Documentación explícita de los valores `null` generados por el parámetro `min_samples = h/3`. Representa la ventana de calentamiento necesaria para que la métrica de saturación hídrica sea estadísticamente válida.
+
+* **Sensibilidad de Saturación Operativa**  
+Identificación del punto de inflexión donde las ventanas de 24h y 48h superan los umbrales críticos de absorción del suelo, señalando el inicio del riesgo aluvial.
 
 ## Estrategia de Despliegue
 
 El proyecto adopta un enfoque de despliegue progresivo de estándar industrial:
 
-* **Fase Exploratoria (`notebooks/01_aed_lluvias.ipynb`):**  
+* **Fase Exploratoria (`notebooks/01_aed_lluvias.ipynb`)**  
 Prototipado de _notebook_ Jupyter, lectura inicial y visualización de datos para validación conceptual.
-* **Fase de Producción (`src/`):**  
-Modularización del código del _notebook_ en funciones puras y scripts ejecutables (ej.: `src/csv_to_parquet.py`) listos para ser orquestados por tareas programadas.
-* **Fase de Reportabilidad y Dashboarding (GitHub Pages):**  
+* **Fase de Producción (`src/`)**  
+Modularización del código del _notebook_ en funciones puras y scripts ejecutables listos para ser orquestados por tareas programadas.
+* **Fase de Reportabilidad y Dashboarding (GitHub Pages)**  
 Renderizado y publicación del reporte web interactivo accesible de forma pública mediante [GitHub Pages](https://pablozunigac.github.io/lluvias-chile-2026).
 
 ## Configuración y Reproducción

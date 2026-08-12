@@ -23,9 +23,34 @@ import polars as pl
 
 # Aquí ejecutas la lectura y despliegas el mapa de calor interactivo
 # px.imshow(...)
-```
 
----
+
+
+
+
+// 1. Cargar D3 en el runtime de Quarto
+d3 = require("d3@7")
+
+// 2. Registros de prueba
+datosTelemetria = [
+  { estacion: "Valparaíso", mm: 327.3 },
+  { estacion: "Combarbalá", mm: 285.5 },
+  { estacion: "Chillán", mm: 312.2 },
+  { estacion: "La Serena", mm: 200.2 }
+]
+
+// 3. Importar y renderizar componente TypeScript
+import { renderLluviaIndicator } from "./components/lluvias.ts"
+
+html`<div id="d3-hello-world"></div>`
+
+${{
+  renderLluviaIndicator("d3-hello-world", datosTelemetria);
+}}
+
+
+
+
 
 # Contexto Climatológico e Histórico: Julio 2026
 

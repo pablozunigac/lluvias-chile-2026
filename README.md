@@ -104,7 +104,7 @@ Donde $\mu$ es el parámetro de localización (centro de la distribución de pic
 * **Monotonicidad de la Suma Acumulada:**  
 Se verifica formalmente la condición de no negatividad y continuidad en las lecturas de los sensores, lo que garantiza la coherencia temporal y la ausencia de valores anómalos o discontinuidades:
 
-$$\sum_{i=0}^{t} P(i) \ge \sum_{i=0}^{t-1} P(i) \quad \hspace{5mm}, \hspace{5mm} \forall t$$
+$$\sum_{i=0}^{t} P(i) \ge \sum_{i=0}^{t-1} P(i) \quad \hspace{2mm}, \hspace{2mm} \forall t$$
 
 * **Efecto de Borde por Inicialización**  
 Documentación explícita de los valores `null` generados por el parámetro `min_samples = h/3`. Representa la ventana de calentamiento necesaria para que la métrica de saturación hídrica sea estadísticamente válida.
@@ -154,7 +154,5 @@ uv run src/csv_to_parquet.py
 
 ##
 
----
-
-**Perfil Profesional & Reportes:** [pablozunigac.github.io ↗](https://pablozunigac.github.io)  
+**Perfil Profesional:** [pablozunigac.github.io ↗](https://pablozunigac.github.io)  
 **Contacto Directo:** [pablo.zuniga.c@gmail.com](mailto:pablo.zuniga.c@gmail.com)

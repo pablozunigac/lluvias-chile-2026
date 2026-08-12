@@ -1,0 +1,54 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lluvias-chile-2026"
+version = "0.1.0"
+description = "Infraestructura analítica para la evaluación de eventos de precipitación extrema y saturación hídrica en Chile."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [
+  { name = "Pablo Zúñiga C.", email = "pablo.zuniga.c@gmail.com" }
+]
+keywords = [
+  "data-science",
+  "analytics-engineering",
+  "polars",
+  "quarto",
+  "evt",
+  "gumbel-distribution"
+]
+
+# Dependencias core de producción utilizadas por tus scripts y Quarto
+dependencies = [
+  "polars>=0.20.0",
+  "pandas>=2.1.0",
+  "pyarrow>=14.0.0",
+  "plotly>=5.18.0",
+  "scipy>=1.11.0",
+  "numpy>=1.26.0",
+  "nbformat>=5.9.0"
+]
+
+[project.optional-dependencies]
+# Dependencias para desarrollo local
+dev = [
+  "pytest>=7.4.0",
+  "ruff>=0.1.0",
+  "jupyter>=1.0.0"
+]
+
+[project.urls]
+Homepage = "https://pablozunigac.github.io/lluvias-chile-2026/"
+Repository = "https://github.com/pablozunigac/lluvias-chile-2026"
+
+# Configuración del linter moderno (Ruff)
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W"]
+ignore = []

@@ -53,7 +53,6 @@ web/.quarto/
 *.csv.tmp
 *.tmp
 
-# Exclusión general de carpetas de datos reteniendo su estructura
-data/raw/*
+# Se versionan los datos fuente (raw), pero se ignoran los datos procesados/generados
 data/processed/*
 !/**/.gitkeep

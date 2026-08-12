@@ -85,7 +85,7 @@ El pipeline de datos está construido sobre **Polars** para garantizar máxima v
 
 ### Matriz de Saturación Multi-Ventana
 
-Para medir la persistencia temporal, el modelo calcula una matriz de medias móviles ($\text{MA}$) sobre las ventanas temporales $h \in \\{6, 12, 24, \dots, 96\\}$ horas:
+Para medir la persistencia temporal, el modelo calcula una matriz de medias móviles ($\text{MA}$) sobre las ventanas temporales $h \in \\{6, 12, 24, \dots, 84, 96\\}$ horas:
 
 $$\text{MA}_h(t) = \frac{1}{k} \sum_{i=0}^{k-1} P(t - i)$$
 
@@ -104,7 +104,7 @@ Donde $\mu$ es el parámetro de localización (centro de la distribución de pic
 * **Monotonicidad de la Suma Acumulada:**  
 Se verifica formalmente la condición de no negatividad y continuidad en las lecturas de los sensores, lo que garantiza la coherencia temporal y la ausencia de valores anómalos o discontinuidades:
 
-$$\sum_{i=0}^{t} P(i) \ge \sum_{i=0}^{t-1} P(i) \quad , \forall t$$
+$$\sum_{i=0}^{t} P(i) \ge \sum_{i=0}^{t-1} P(i) \quad \hspace{5mm}, \hspace{5mm} \forall t$$
 
 * **Efecto de Borde por Inicialización**  
 Documentación explícita de los valores `null` generados por el parámetro `min_samples = h/3`. Representa la ventana de calentamiento necesaria para que la métrica de saturación hídrica sea estadísticamente válida.

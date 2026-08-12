@@ -1,0 +1,32 @@
+---
+title: "Análisis Exploratorio de Datos (AED) y Pipeline ETL"
+subtitle: "Procesamiento High-Performance sobre Polars y Formato Parquet"
+format:
+  html:
+    toc: true
+    code-fold: false
+---
+
+# Arquitectura e Ingesta de Telemetría
+
+Los datos provienen de registros agregados en intervalos de 3 horas integrando el modelo **ECMWF** a través de la plataforma Windy.com.
+
+```python
+#| label: setup-etl
+#| message: false
+#| warning: false
+
+import polars as pl
+from pathlib import Path
+
+# Carga tipada vectorizada desde raw CSV
+raw_path = Path("../data/raw/Lluvia_2026_v2.csv")
+
+df_raw = pl.read_csv(
+    raw_path,
+    schema_overrides={
+        "hora": pl.Int32,
+        "fecha": pl.Float64,
+        "lluvia_mm": pl.Float64
+    }
+)

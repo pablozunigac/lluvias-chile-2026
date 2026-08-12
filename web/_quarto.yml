@@ -1,25 +1,30 @@
 project:
   type: website
-  output-dir: _site
-  render:
-    - "index.qmd"
+  output-dir: ../_site
 
 website:
-  title: "Modelo Estadístico de Lluvias Chile 2026"
-  site-url: "https://pablozunigac.github.io/lluvias-chile-2026/"
+  title: "Modelo de Lluvia Chile 2026"
   navbar:
     left:
-      - href: index.qmd
-        text: "Reporte Ejecutivo"
+      - text: "Resumen Ejecutivo"
+        href: index.qmd
+      - text: "Análisis Exploratorio (AED)"
+        href: aed.qmd
+      - text: "Modelo & EVT"
+        href: modelo.qmd
+    right:
+      - icon: github
+        href: https://github.com/pablozunigac/lluvias-chile-2026
+      - icon: globe
+        href: https://pablozunigac.github.io
 
 format:
   html:
-    theme: cosmo
+    theme:
+      light: flatly
+      dark: darkly
     toc: true
     toc-depth: 3
-    code-fold: true
-    code-summary: "Ver código Python/R"
-    html-math-method: katex
-
-execute:
-  freeze: auto
+    code-fold: show
+    code-tools: true
+    smooth-scroll: true

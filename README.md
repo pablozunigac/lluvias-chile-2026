@@ -79,15 +79,19 @@ Los datos analizados provienen de registros de precipitación recopilados median
 * **Datos sin procesamiento:** `data/raw/Lluvia_2026_v2.csv`
 * **Variables del _scraping_:** `fecha`, `hora`, `lluvia_mm`
 
+---
+
 ## Sección 4 – _Pipeline_ ETL (Extract, Transform, Load)
 
 El _pipeline_ de datos está construido sobre **Polars** para garantizar máxima velocidad de procesamiento en memoria mediante ejecución vectorizada:
 
-* **_Extract_:** Lectura resuelta mediante `pathlib` dinámico para garantizar portabilidad entre SO, con esquema tipado explícito (`hora` -> `Int32`, `fecha` -> `Float64`, `lluvia_mm` -> `Float64`).  
-* **_Transform_:**
+* **_Extract_:**
+  Lectura resuelta mediante `pathlib` dinámico para garantizar portabilidad entre SO, con esquema tipado explícito (`hora` -> `Int32`, `fecha` -> `Float64`, `lluvia_mm` -> `Float64`).  
+* **_Transform_:**  
    * Reconstrucción del sello temporal absoluto (`datetime`): Conversión de la fecha flotante de serial Excel a `Date` y posterior combinación vectorial con el entero de hora.
    * Ordenamiento cronológico garantizado (`sort("datetime")`).  
-* **_Load_:** Exportación en formato columnar **Parquet** en `data/processed/lluvia_2026_matrix.parquet`, preservando metadatos de tipo y nulos de inicialización.
+* **_Load_:**
+  Exportación en formato columnar **Parquet** en `data/processed/lluvia_2026_matrix.parquet`, preservando metadatos de tipo y nulos de inicialización.
 
 ---
 
@@ -109,18 +113,22 @@ $$F(x; \mu, \beta) = \exp\left(-\exp\left(-\frac{x - \mu}{\beta}\right)\right)$$
 
 Donde $\mu$ es el parámetro de localización (centro de la distribución de picos) y $\beta$ es el parámetro de escala ($\beta > 0$).
 
+---
+
 ## Sección 6 – Evaluación y Validación del Modelo
 
 * **Monotonicidad de la Suma Acumulada:**  
-Se verifica formalmente la condición de no negatividad y continuidad en las lecturas de los sensores, lo que garantiza la coherencia temporal y la ausencia de valores anómalos o discontinuidades:
+Se verifica formalmente la condición de no negatividad y continuidad en los datos, garantizando la coherencia temporal y la ausencia de valores anómalos o discontinuidades:
 
 $$\sum_{i=0}^{t} P(i) \ge \sum_{i=0}^{t-1} P(i) \quad \hspace{2mm}, \hspace{2mm} \forall t$$
 
 * **Efecto de Borde por Inicialización**  
-Documentación explícita de los valores `null` generados por el parámetro `min_samples = h/3`. Representa la ventana de calentamiento necesaria para que la métrica de saturación hídrica sea estadísticamente válida.
+Documentación explícita de los valores `null` generados por el parámetro `min_samples = h/3`. Representa la ventana de calentamiento necesaria para que la ventana móvil hídrica (6h a 96h) sea estadísticamente válida.
 
 * **Sensibilidad de Saturación Operativa**  
 Identificación del punto de inflexión donde las ventanas de 24h y 48h superan los umbrales críticos de absorción del suelo, señalando el inicio del riesgo aluvial.
+
+---
 
 ## Sección 7 – Estrategia de Despliegue
 
@@ -130,8 +138,10 @@ El proyecto adopta un enfoque de despliegue progresivo de estándar industrial:
 Prototipado de _notebook_ Jupyter, lectura inicial y visualización de datos para validación conceptual.
 * **Fase de Producción:** `src/`   
 Modularización del código del _notebook_ en funciones puras y scripts ejecutables listos para ser orquestados por tareas programadas.
-* **Fase de Reportabilidad y Dashboarding (GitHub Pages)**  
-Renderizado y publicación del reporte web interactivo accesible de forma pública mediante [GitHub Pages](https://pablozunigac.github.io/lluvias-chile-2026).
+* **Fase de Reportabilidad y Dashboarding (*GitHub Pages*)**  
+Renderizado y publicación del reporte web interactivo accesible de forma pública mediante **GitHub Pages** y **Quarto**.
+
+---
 
 ## Sección 8 – Configuración y Reproducción
 
@@ -143,19 +153,19 @@ Antes de comenzar, asegúrate de contar con lo siguiente en tu sistema:
 * **uv:** Gestor de paquetes y entornos virtuales de Python (versión >= 0.12).
 * **Python 3.11+** *(opcional)*: No es estrictamente necesario tenerlo instalado, `uv` lo descargará e instalará automáticamente si es necesario.
 
-**Instalación Rápida de `uv` en macOS/Linux (Bash/Zsh):**
+**Instalación rápida de `uv` en macOS/Linux (Bash/Zsh):**
   ```bash
   curl -LsSf https://astral.sh/uv/install.sh | sh
   ```
 
-**Instalación Rápida de `uv` en Windows (PowerShell):**
+**Instalación rápida de `uv` en Windows (PowerShell):**
   ```powershell
   powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
   ```
 
 ### Instalación, Entorno y Ejecución
 
-**Paso 1: Clonar el repositorio**
+**Paso 1: Clonar el repositorio (*y apuntar la terminal hacia él*)**
 
 ```bash
 git clone https://github.com/pablozunigac/lluvias-chile-2026.git
@@ -174,7 +184,7 @@ uv sync
 uv run jupyter notebook notebooks/01_aed_lluvias.ipynb
 ```
 
-**Paso Opcional: Pipeline ETL (CSV a Parquet)**
+**Paso Opcional: *Pipeline* ETL (CSV a Parquet)**
 
 ```bash
 uv run src/csv_to_parquet.py

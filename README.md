@@ -1,37 +1,44 @@
 # Modelo Estadístico para las Lluvias de 2026 en Chile
 
-Este repositorio implementa una infraestructura analítica avanzada para la evaluación de eventos de precipitación extrema y saturación hídrica. Su propósito central es modelar la persistencia temporal de los frentes de mal tiempo mediante matrices de acumulación multi-ventana y mapas de calor interactivos, permitiendo anticipar el riesgo sistémico en contextos urbanos y rurales. Diseñado para mitigar escenarios críticos como desbordes fluviales, anegamientos severos e interrupción de infraestructura crítica, el sistema traduce pronósticos meteorológicos complejos en métricas accionables para la gestión de crisis y la toma de decisiones operativas en tiempo real.
+Este repositorio implementa analítica avanzada para la evaluación de eventos de precipitación extrema y saturación hídrica. Su propósito central es modelar la persistencia temporal de los frentes de mal tiempo mediante matrices de acumulación multi-ventana y mapas de calor interactivos, permitiendo anticipar el riesgo sistémico en contextos urbanos y rurales.
+
+Diseñado para mitigar escenarios críticos como desbordes fluviales, anegamientos severos e interrupción de infraestructura crítica, el sistema traduce pronósticos meteorológicos en métricas utilizables en la gestión de crisis y la toma de decisiones operativas.
 
 ![Mapa de Calor: Acumulación por ventanas de tiempo variables](web/assets/heatmap_01.png)
 
+---
+
 ## Sección 1 – Contexto Climatológico Nacional: Chile, julio de 2026
 
-En julio de 2026, la zona centro-norte de Chile enfrentó un evento hidrometeorológico crítico originado por el ingreso de un **río atmosférico de Categoría 5** acoplado a un tren de sistemas frontales encadenados, fenómeno intensificado por la fase cálida de El Niño. El evento causó una emergencia de escala nacional entre las regiones de Coquimbo y Ñuble, impactando severamente asentamientos urbanos, cadenas productivas y conectividad vial.
+En julio de 2026, la zona centro-norte de Chile enfrentó un evento hidrometeorológico crítico originado por el ingreso de un **río atmosférico de Categoría 5** acoplado a un tren de sistemas frontales encadenados, fenómeno intensificado por la fase cálida de **El Niño**. El evento causó una emergencia de escala nacional entre las regiones de **Coquimbo** y **Ñuble**, impactando severamente asentamientos urbanos, cadenas productivas y conectividad vial.
 
 ### Impacto Territorial, Humanitario e Infraestructura
 
 * **Estado de Catástrofe e Impacto Humanitario**  
-La magnitud del desastre motivó la declaración de *Estado de Catástrofe* en la Región de Coquimbo y la Provincia de Huasco. El saldo nacional registró **15 personas fallecidas, 16 desaparecidas**, más de 16.000 damnificados y sobre 15.800 personas aisladas por colapsos viales.
+La magnitud del desastre motivó la declaración de **Estado de Catástrofe** en la Región de Coquimbo y la Provincia de Huasco. El saldo nacional registró **15 personas fallecidas, 16 desaparecidas**, más de 16.000 damnificados y sobre 15.800 personas aisladas por colapsos viales.
+
 * **Infraestructura Critica y Cauces**  
 Se registraron socavamientos mayores en la Ruta 5 y vías costeras, daños en la infraestructura hospitalaria de Ovalle y desbordes de cauces principales como el río Elqui y el estero Tongoy en Coquimbo, además de evacuaciones masivas en la Región de Valparaíso por la crecida de los esteros Marga Marga y Quilpué.
 
 ### Registros Históricos y Dinámica de Saturación
 
-El frente descargó acumulados continuos de **200 a 350 mm en menos de 72 horas**, alcanzando hitos no registrados en décadas:
+El frente descargó precipitaciones de **entre 200 y 350 mm en menos de 72 horas**, alcanzando hitos no registrados en décadas. De norte a sur, destacan:
 
-* **Valdivia (Estación Pichoy):** 683.3 mm, estableciendo un nuevo récord histórico absoluto para un mes de julio.  
 * **Combarbalá (Región de Coquimbo):** 285.5 mm, alcanzando el primer lugar histórico para las mediciones de julio en la zona.  
-* **Osorno (Estación Cañal Bajo):** 330.2 mm, ubicándose en el tercer lugar histórico de la estación.  
-* **Rodelillo (Valparaíso):** 327.3 mm acumulados durante todo el mes, situándose en el quinto lugar histórico de su serie de mediciones.  
 * **La Serena (Estación La Florida):** 200.2 mm, el registro más alto para un mes de julio desde que existen datos en el aeródromo.
+* **Rodelillo (Valparaíso):** 327.3 mm acumulados durante todo el mes, situándose en el quinto lugar histórico de su serie de mediciones.  
+* **Valdivia (Estación Pichoy):** 683.3 mm, estableciendo un nuevo récord histórico absoluto para un mes de julio.  
+* **Osorno (Estación Cañal Bajo):** 330.2 mm, ubicándose en el tercer lugar histórico de la estación.  
 
 ### Respuesta Analítica e Infraestructura de Datos
 
-Frente a la rápida saturación de suelos y el riesgo aluvial, este repositorio despliega un **modelo estocástico y matricial** diseñado para procesar telemetría de precipitación y anticipar la saturación hídrica mediante ventanas móviles (6h a 96h). El sistema convierte registros puntuales en métricas operativas directas para respaldar evacuaciones preventivas y la protección de infraestructura crítica así como un soporte para el análisis avanzado para las precipitaciones del pasado.
+Frente a la rápida saturación de suelos y el riesgo aluvial, este modelo despliega un **modelo estocástico y matricial** diseñado para procesar telemetría de precipitación y anticipar la saturación hídrica mediante ventanas móviles (6h a 96h). El sistema convierte registros puntuales en métricas para respaldar evacuaciones preventivas y la protección de infraestructura crítica así como un soporte para el análisis avanzado del historial de precipitaciones.
+
+---
 
 ## Sección 2 – Arquitectura del Repositorio
 
-El proyecto mantiene un desacoplamiento estricto entre los datos primarios, la exploración interactiva, el código fuente modular y los artefactos exportados.
+El proyecto mantiene un desacoplamiento entre los datos primarios, la exploración interactiva, el código fuente y los artefactos exportados.
 
 ```text
 lluvias-chile-2026/
@@ -62,23 +69,27 @@ lluvias-chile-2026/
 └── README.md                    # Documentación técnica principal del repositorio
 ```
 
+---
+
 ## Sección 3 – Origen y Estructura de los Datos
 
-Los datos analizados provienen de registros de precipitación recopilados mediante _scraping_ estructurado e integración del modelo **ECMWF (_European Centre for Medium-Range Weather Forecasts_)** a través de la plataforma Windy.com.
+Los datos analizados provienen de registros de precipitación recopilados mediante _scraping_ estructurado e integración del modelo **ECMWF (_European Centre for Medium-Range Weather Forecasts_)** a través de la plataforma [Windy.com](https://www.windy.com).
 
 * **Frecuencia de Muestreo:** Intervalos de 3 horas.
-* **Estructura Cruda:** `data/raw/Lluvia_2026_v2.csv`
+* **Datos sin procesamiento:** `data/raw/Lluvia_2026_v2.csv`
 * **Variables del _scraping_:** `fecha`, `hora`, `lluvia_mm`
 
-## Sección 4 – Pipeline ETL (Extract, Transform, Load)
+## Sección 4 – _Pipeline_ ETL (Extract, Transform, Load)
 
-El pipeline de datos está construido sobre **Polars** para garantizar máxima velocidad de procesamiento en memoria mediante ejecución vectorizada:
+El _pipeline_ de datos está construido sobre **Polars** para garantizar máxima velocidad de procesamiento en memoria mediante ejecución vectorizada:
 
 * **_Extract_:** Lectura resuelta mediante `pathlib` dinámico para garantizar portabilidad entre SO, con esquema tipado explícito (`hora` -> `Int32`, `fecha` -> `Float64`, `lluvia_mm` -> `Float64`).  
 * **_Transform_:**
    * Reconstrucción del sello temporal absoluto (`datetime`): Conversión de la fecha flotante de serial Excel a `Date` y posterior combinación vectorial con el entero de hora.
    * Ordenamiento cronológico garantizado (`sort("datetime")`).  
 * **_Load_:** Exportación en formato columnar **Parquet** en `data/processed/lluvia_2026_matrix.parquet`, preservando metadatos de tipo y nulos de inicialización.
+
+---
 
 ## Sección 5 – Modelo Analítico y Caracterización Estadística
 
